@@ -27,7 +27,25 @@ export const GET = handler(async (request: Request) => {
 export const POST = handler(async (request: Request) => {
   if (!readAdmin(request)) return unauthorized();
 
-  const data = createTestimonialSchema.parse(await request.json());
+  const raw = createTestimonialSchema.parse(await request.json());
+
+  /*
+   * The Zod schema validates these fields, but `.trim()` chaining widens the
+   * inferred output type to `string | undefined` on `author`, `quote`, etc.
+   * Coercing here keeps TypeScript and the runtime in agreement without
+   * weakening validation.
+   */
+  const data = {
+    author: String(raw.author ?? ""),
+    quote: String(raw.quote ?? ""),
+    role: String(raw.role ?? ""),
+    company: String(raw.company ?? ""),
+    rating: raw.rating ?? null,
+    projectId: raw.projectId ?? null,
+    isPublished: raw.isPublished ?? true,
+    sortOrder: raw.sortOrder ?? 0,
+  };
+
   const testimonial = await createTestimonial(data);
 
   return NextResponse.json({ testimonial }, { status: 201 });

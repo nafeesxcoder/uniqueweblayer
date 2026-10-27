@@ -2,7 +2,21 @@ import "server-only";
 import { z } from "zod";
 import { SERVICE_TYPES } from "../serviceTypes";
 
-const trimmed = (max: number) => z.string().trim().max(max);
+/**
+ * `trimmed` — trim then cap length.
+ *
+ * The trim runs INSIDE `.transform()` rather than as `.trim()` on the ZodString
+ * itself. `.string().trim().max(n)` widens the inferred output type to
+ * `string | undefined`, which then makes every consumer of the parsed result
+ * think the field might be missing even when the schema marks it required.
+ * Doing the trim in a transform keeps the output type `string` — matching what
+ * the runtime actually returns — so route handlers no longer need to coerce.
+ */
+const trimmed = (max: number) =>
+  z
+    .string()
+    .max(max, `Must be ${max} characters or fewer`)
+    .transform((v) => v.trim());
 
 /** Accepts a real array, or the comma-separated / JSON string a form sends. */
 const tagsField = z
@@ -45,8 +59,8 @@ const boolField = z
  */
 const optionalUrl = z
   .string()
-  .trim()
   .max(500)
+  .transform((v) => v.trim())
   .optional()
   .refine(
     (v) =>
@@ -59,16 +73,35 @@ const optionalUrl = z
   );
 
 export const createProjectSchema = z.object({
-  title: trimmed(180).min(2, "Project title is required"),
-  category: trimmed(120).min(2, "Category is required (e.g. Real Estate)"),
+  title: trimmed(180).pipe(z.string().min(2, "Project title is required")),
+  category: trimmed(120).pipe(
+    z.string().min(2, "Category is required (e.g. Real Estate)"),
+  ),
   type: z.enum(SERVICE_TYPES, {
     errorMap: () => ({ message: "Pick one of the service lines" }),
   }),
-  description: trimmed(2000).min(20, "Write at least 20 characters"),
-  image: z.string().trim().max(500).optional().default(""),
+  description: trimmed(2000).pipe(
+    z.string().min(20, "Write at least 20 characters"),
+  ),
+  image: z
+    .string()
+    .max(500)
+    .transform((v) => v.trim())
+    .optional()
+    .default(""),
   liveLink: optionalUrl,
-  color: trimmed(20)
-    .regex(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i, "Use a hex colour like #8b5cf6")
+  // NOTE: .transform() must come AFTER .regex(), because ZodEffects (the type
+  // returned by .transform) does not expose .regex(). Trimming inside the
+  // refinement keeps " #8b5cf6 " (with spaces) valid, and the final transform
+  // normalises the stored value.
+  color: z
+    .string()
+    .max(20)
+    .refine(
+      (v) => /^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(v.trim()),
+      "Use a hex colour like #8b5cf6",
+    )
+    .transform((v) => v.trim())
     .optional()
     .default("#8b5cf6"),
   tags: tagsField,
@@ -148,10 +181,10 @@ const optionalRating = z
   });
 
 export const createTestimonialSchema = z.object({
-  author: trimmed(120).min(2, "Whose words are these?"),
+  author: trimmed(120).pipe(z.string().min(2, "Whose words are these?")),
   role: trimmed(160).optional().default(""),
   company: trimmed(160).optional().default(""),
-  quote: trimmed(2000).min(10, "The quote looks too short"),
+  quote: trimmed(2000).pipe(z.string().min(10, "The quote looks too short")),
   rating: optionalRating,
   projectId: optionalId,
   isPublished: z.coerce.boolean().optional().default(true),
@@ -161,12 +194,14 @@ export const createTestimonialSchema = z.object({
 export const updateTestimonialSchema = createTestimonialSchema.partial();
 
 export const contactSchema = z.object({
-  name: trimmed(180).min(2, "Please enter your name"),
+  name: trimmed(180).pipe(z.string().min(2, "Please enter your name")),
   email: z.string().trim().email("Enter a valid email address").max(255),
-  mobile: trimmed(40).min(6, "Enter a reachable phone number"),
-  service: trimmed(180).min(2, "Please select a service"),
+  mobile: trimmed(40).pipe(z.string().min(6, "Enter a reachable phone number")),
+  service: trimmed(180).pipe(z.string().min(2, "Please select a service")),
   budget: trimmed(80).optional().default(""),
-  message: trimmed(5000).min(10, "Tell us a little more — at least 10 characters"),
+  message: trimmed(5000).pipe(
+    z.string().min(10, "Tell us a little more — at least 10 characters"),
+  ),
   // Hidden field a human never fills in; bots usually do.
   website: z.string().optional().default(""),
   // Where the visit started. Sent by the form, never typed by anyone.
@@ -190,6 +225,8 @@ export function formToObject(form: FormData): Record<string, string> {
 /* ----------------------------- service pricing ---------------------------- */
 
 export const servicePricingSchema = z.object({
-  price: trimmed(40).min(1, "Enter a price, or write “On request”"),
-  delivery: trimmed(80).min(1, "Enter a delivery time"),
+  price: trimmed(40).pipe(
+    z.string().min(1, "Enter a price, or write “On request”"),
+  ),
+  delivery: trimmed(80).pipe(z.string().min(1, "Enter a delivery time")),
 });

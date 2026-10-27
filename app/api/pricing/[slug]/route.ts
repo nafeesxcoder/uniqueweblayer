@@ -23,8 +23,16 @@ export const PATCH = handler(async (request: Request, { params }: Ctx) => {
   // row nothing ever reads and quietly do nothing.
   if (!isKnownService(slug)) return notFound("No such service");
 
-  const data = servicePricingSchema.parse(await request.json());
-  await setServicePricing(slug, data);
+  // Parse and coerce to plain strings. The Zod schema validates the input,
+  // but TypeScript cannot prove `.parse()` returns exactly `{ price: string;
+  // delivery: string }` because `.trim()` chaining widens the output type to
+  // `string | undefined`. Explicit `String(...)` here makes the assignment to
+  // `setServicePricing` type-safe without weakening validation.
+  const raw = servicePricingSchema.parse(await request.json());
+  await setServicePricing(slug, {
+    price: String(raw.price ?? ""),
+    delivery: String(raw.delivery ?? ""),
+  });
 
   return NextResponse.json({ slug, pricing: await getServicePricing(slug) });
 });
