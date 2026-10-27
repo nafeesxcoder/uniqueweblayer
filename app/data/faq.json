@@ -1,0 +1,52 @@
+{
+  "faqs": [
+    {
+      "question": "What services does Unique Web Layer offer?",
+      "answer": "Three areas: web development (business sites, e-commerce, landing pages, portfolios, blogs, booking systems, LMS, real estate, restaurant, SaaS, membership and custom MERN applications), mobile app development (React Native and Flutter for Android and iOS), and SEO (technical, on-page, local and international) plus website maintenance plans."
+    },
+    {
+      "question": "Which countries do you work with?",
+      "answer": "All of them. We are a remote-first company delivering online — current clients are in the United States, United Kingdom, Canada, Australia, UAE, Saudi Arabia, Germany, Singapore, India and more. Calls are scheduled in your time zone and contracts are in English."
+    },
+    {
+      "question": "How much does a website cost?",
+      "answer": "Landing pages start at $199, business websites at $499, e-commerce at $999, SaaS and custom web applications from $1499. Mobile apps start at $1499 and SEO retainers at $249 per month. Every project gets a fixed written quote before work starts."
+    },
+    {
+      "question": "How long does a project take?",
+      "answer": "Landing pages take 1-2 weeks, business websites 2-3 weeks, e-commerce 4-6 weeks, mobile apps 6-10 weeks and custom software 8-12 weeks. You get a staging link from the first week so you can follow progress rather than wait."
+    },
+    {
+      "question": "Do you build mobile apps as well as websites?",
+      "answer": "Yes. We build Android and iOS apps from a single React Native or Flutter codebase, including the backend, the admin panel and the Play Store and App Store submission. Many clients take the website and the app together so both share one database."
+    },
+    {
+      "question": "Do you do SEO for websites you didn't build?",
+      "answer": "Yes. We start with a technical audit of the existing site — crawlability, speed, schema, content gaps and backlinks — and give you a prioritised fix list before any retainer begins."
+    },
+    {
+      "question": "Who owns the code after launch?",
+      "answer": "You do. The repository, the hosting accounts and the domain stay in your name, and we hand over full source code, documentation and credentials at launch. No licence fees and no lock-in."
+    },
+    {
+      "question": "What is your payment structure?",
+      "answer": "Typically 50% to start and 50% on completion. Larger projects are split into milestone payments, and retainers are billed monthly in advance. We invoice in USD, GBP, EUR, AED, CAD, AUD or INR."
+    },
+    {
+      "question": "Do you provide support after launch?",
+      "answer": "Every project includes post-launch support, and optional monthly maintenance plans cover updates, security patches, backups, uptime monitoring and a block of hours for new changes."
+    },
+    {
+      "question": "Can you work with our existing team or codebase?",
+      "answer": "Yes. We join your repository, sprint board and stand-ups as a dedicated developer or squad on a monthly contract, or take a defined module as a fixed-price piece of work."
+    },
+    {
+      "question": "Will you sign an NDA?",
+      "answer": "Yes, on request and before any details are shared. Work happens in private repositories and access is limited to the people on your project."
+    },
+    {
+      "question": "How do we start?",
+      "answer": "Send your requirements through the contact form, by email or on WhatsApp. You get a reply within about six hours, a short discovery call, then a written scope and fixed quote — usually within one working day."
+    }
+  ]
+}

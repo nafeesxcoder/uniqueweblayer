@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 560" fill="none" role="img" aria-label="A laptop showing an analytics dashboard with a mobile app screen in front of it">
+  <defs>
+    <linearGradient id="uwlAccent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#a78bfa"/>
+      <stop offset="55%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <linearGradient id="uwlCyan" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22d3ee"/>
+      <stop offset="100%" stop-color="#3b82f6"/>
+    </linearGradient>
+    <linearGradient id="uwlDeck" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2a1f4d"/>
+      <stop offset="100%" stop-color="#140d28"/>
+    </linearGradient>
+    <linearGradient id="uwlBar" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#c084fc"/>
+    </linearGradient>
+    <linearGradient id="uwlGlass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.01"/>
+    </linearGradient>
+    <filter id="uwlShadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="22" stdDeviation="26" flood-color="#2e1065" flood-opacity="0.45"/>
+    </filter>
+    <filter id="uwlSoft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="34"/>
+    </filter>
+  </defs>
+
+  <!-- ambient glow -->
+  <g filter="url(#uwlSoft)" opacity="0.55">
+    <circle cx="180" cy="150" r="96" fill="#8b5cf6" opacity="0.40"/>
+    <circle cx="500" cy="420" r="104" fill="#ec4899" opacity="0.28"/>
+    <circle cx="470" cy="130" r="70" fill="#22d3ee" opacity="0.20"/>
+  </g>
+
+  <!-- orbit ring -->
+  <ellipse cx="320" cy="300" rx="286" ry="238" stroke="#8b5cf6" stroke-opacity="0.16" stroke-dasharray="3 9"/>
+
+  <!-- ================= laptop ================= -->
+  <g filter="url(#uwlShadow)">
+    <rect x="66" y="62" width="470" height="304" rx="18" fill="#1b1335" stroke="#8b5cf6" stroke-opacity="0.34"/>
+    <rect x="80" y="76" width="442" height="276" rx="11" fill="#0e0920"/>
+
+    <!-- browser chrome -->
+    <rect x="80" y="76" width="442" height="30" rx="11" fill="#191130"/>
+    <rect x="80" y="96" width="442" height="10" fill="#191130"/>
+    <circle cx="99" cy="91" r="4" fill="#f87171"/>
+    <circle cx="114" cy="91" r="4" fill="#fbbf24"/>
+    <circle cx="129" cy="91" r="4" fill="#34d399"/>
+    <rect x="150" y="84" width="180" height="14" rx="7" fill="#0e0920"/>
+    <rect x="160" y="89" width="92" height="4" rx="2" fill="#6d5b9e"/>
+
+    <!-- sidebar -->
+    <rect x="80" y="106" width="94" height="246" fill="#140d28"/>
+    <rect x="94" y="124" width="22" height="22" rx="7" fill="url(#uwlAccent)"/>
+    <rect x="124" y="131" width="34" height="7" rx="3.5" fill="#6d5b9e"/>
+    <rect x="94" y="166" width="64" height="7" rx="3.5" fill="#a78bfa" opacity="0.85"/>
+    <rect x="94" y="188" width="50" height="7" rx="3.5" fill="#6d5b9e" opacity="0.7"/>
+    <rect x="94" y="210" width="58" height="7" rx="3.5" fill="#6d5b9e" opacity="0.7"/>
+    <rect x="94" y="232" width="44" height="7" rx="3.5" fill="#6d5b9e" opacity="0.7"/>
+    <rect x="88" y="160" width="3" height="19" rx="1.5" fill="url(#uwlAccent)"/>
+
+    <!-- stat cards -->
+    <rect x="190" y="122" width="100" height="56" rx="11" fill="url(#uwlGlass)" stroke="#8b5cf6" stroke-opacity="0.26"/>
+    <rect x="202" y="134" width="40" height="6" rx="3" fill="#6d5b9e"/>
+    <rect x="202" y="148" width="58" height="13" rx="4" fill="url(#uwlAccent)"/>
+    <rect x="300" y="122" width="100" height="56" rx="11" fill="url(#uwlGlass)" stroke="#8b5cf6" stroke-opacity="0.26"/>
+    <rect x="312" y="134" width="34" height="6" rx="3" fill="#6d5b9e"/>
+    <rect x="312" y="148" width="48" height="13" rx="4" fill="url(#uwlCyan)"/>
+    <rect x="410" y="122" width="96" height="56" rx="11" fill="url(#uwlGlass)" stroke="#8b5cf6" stroke-opacity="0.26"/>
+    <rect x="422" y="134" width="44" height="6" rx="3" fill="#6d5b9e"/>
+    <rect x="422" y="148" width="40" height="13" rx="4" fill="#34d399"/>
+
+    <!-- chart panel -->
+    <rect x="190" y="192" width="316" height="146" rx="12" fill="url(#uwlGlass)" stroke="#8b5cf6" stroke-opacity="0.22"/>
+    <rect x="204" y="206" width="56" height="7" rx="3.5" fill="#6d5b9e"/>
+
+    <!-- bars -->
+    <rect x="206" y="282" width="20" height="38" rx="5" fill="url(#uwlBar)"/>
+    <rect x="240" y="266" width="20" height="54" rx="5" fill="url(#uwlBar)"/>
+    <rect x="274" y="288" width="20" height="32" rx="5" fill="url(#uwlBar)"/>
+    <rect x="308" y="250" width="20" height="70" rx="5" fill="url(#uwlBar)"/>
+    <rect x="342" y="262" width="20" height="58" rx="5" fill="url(#uwlBar)"/>
+    <rect x="376" y="236" width="20" height="84" rx="5" fill="url(#uwlBar)"/>
+    <rect x="410" y="248" width="20" height="72" rx="5" fill="url(#uwlBar)"/>
+    <rect x="444" y="224" width="20" height="96" rx="5" fill="url(#uwlBar)"/>
+    <rect x="478" y="212" width="20" height="108" rx="5" fill="url(#uwlBar)"/>
+
+    <!-- trend line -->
+    <path d="M216 272 L250 256 L284 278 L318 240 L352 252 L386 226 L420 238 L454 214 L488 202"
+          stroke="url(#uwlAccent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="488" cy="202" r="5" fill="#ec4899"/>
+    <circle cx="488" cy="202" r="10" fill="#ec4899" opacity="0.25"/>
+  </g>
+
+  <!-- laptop deck -->
+  <path d="M34 366 H572 L596 404 Q598 414 587 414 H53 Q42 414 44 404 Z" fill="url(#uwlDeck)" stroke="#8b5cf6" stroke-opacity="0.28"/>
+  <rect x="268" y="376" width="104" height="8" rx="4" fill="#8b5cf6" opacity="0.30"/>
+
+  <!-- ================= phone ================= -->
+  <g filter="url(#uwlShadow)">
+    <rect x="404" y="244" width="162" height="292" rx="26" fill="#1b1335" stroke="#8b5cf6" stroke-opacity="0.40"/>
+    <rect x="414" y="254" width="142" height="272" rx="19" fill="#0e0920"/>
+    <rect x="462" y="262" width="46" height="7" rx="3.5" fill="#2a1f4d"/>
+
+    <!-- app header -->
+    <rect x="414" y="278" width="142" height="54" fill="url(#uwlAccent)" opacity="0.92"/>
+    <rect x="428" y="294" width="54" height="8" rx="4" fill="#ffffff" opacity="0.92"/>
+    <rect x="428" y="310" width="78" height="6" rx="3" fill="#ffffff" opacity="0.55"/>
+    <circle cx="538" cy="303" r="9" fill="#ffffff" opacity="0.22"/>
+
+    <!-- app cards -->
+    <rect x="426" y="346" width="118" height="44" rx="10" fill="url(#uwlGlass)" stroke="#8b5cf6" stroke-opacity="0.26"/>
+    <circle cx="444" cy="368" r="11" fill="url(#uwlCyan)" opacity="0.85"/>
+    <rect x="462" y="360" width="56" height="6" rx="3" fill="#8b7ab8"/>
+    <rect x="462" y="372" width="38" height="5" rx="2.5" fill="#5d4f88"/>
+
+    <rect x="426" y="400" width="118" height="44" rx="10" fill="url(#uwlGlass)" stroke="#8b5cf6" stroke-opacity="0.26"/>
+    <circle cx="444" cy="422" r="11" fill="#34d399" opacity="0.8"/>
+    <rect x="462" y="414" width="48" height="6" rx="3" fill="#8b7ab8"/>
+    <rect x="462" y="426" width="62" height="5" rx="2.5" fill="#5d4f88"/>
+
+    <!-- primary action -->
+    <rect x="426" y="456" width="118" height="30" rx="15" fill="url(#uwlAccent)"/>
+    <rect x="464" y="468" width="42" height="6" rx="3" fill="#ffffff" opacity="0.9"/>
+
+    <!-- bottom nav -->
+    <circle cx="444" cy="508" r="5" fill="url(#uwlAccent)"/>
+    <circle cx="470" cy="508" r="5" fill="#3c3157"/>
+    <circle cx="496" cy="508" r="5" fill="#3c3157"/>
+    <circle cx="522" cy="508" r="5" fill="#3c3157"/>
+  </g>
+
+  <!-- ================= floating chips ================= -->
+  <g filter="url(#uwlShadow)">
+    <rect x="22" y="196" width="104" height="46" rx="14" fill="#1b1335" stroke="#8b5cf6" stroke-opacity="0.45"/>
+    <path d="M44 212 L36 219 L44 226 M60 212 L68 219 L60 226" stroke="url(#uwlAccent)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="80" y="211" width="30" height="6" rx="3" fill="#8b7ab8"/>
+    <rect x="80" y="223" width="20" height="5" rx="2.5" fill="#5d4f88"/>
+  </g>
+
+  <g filter="url(#uwlShadow)">
+    <rect x="516" y="54" width="104" height="46" rx="14" fill="#1b1335" stroke="#8b5cf6" stroke-opacity="0.45"/>
+    <circle cx="540" cy="77" r="12" fill="#34d399" opacity="0.18"/>
+    <path d="M534 77 L538.5 81.5 L547 72" stroke="#34d399" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="562" y="69" width="40" height="6" rx="3" fill="#8b7ab8"/>
+    <rect x="562" y="81" width="26" height="5" rx="2.5" fill="#5d4f88"/>
+  </g>
+
+  <!-- accent dots -->
+  <circle cx="40" cy="96" r="5" fill="#8b5cf6" opacity="0.7"/>
+  <circle cx="600" cy="236" r="6" fill="#ec4899" opacity="0.6"/>
+  <circle cx="110" cy="470" r="5" fill="#22d3ee" opacity="0.6"/>
+  <circle cx="596" cy="470" r="4" fill="#a78bfa" opacity="0.5"/>
+</svg>

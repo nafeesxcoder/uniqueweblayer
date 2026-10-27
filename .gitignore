@@ -1,0 +1,52 @@
+# ---- dependencies ----
+node_modules/
+.pnp
+.pnp.*
+
+# ---- next.js ----
+.next/
+out/
+build/
+next-env.d.ts
+
+# ---- uploaded project screenshots ----
+# Real client screenshots, not source. Back them up with the database.
+uploads/*
+!uploads/.gitkeep
+
+# ---- your own documents ----
+# Contracts, invoices and anything else uploaded in /admin/documents.
+# Private files; back them up with the database, never commit them.
+storage/
+
+# ---- database backups ----
+# Dumps contain customer enquiries — never commit them.
+backups/
+
+# ---- env files ----
+# MySQL password, mailbox password, JWT secret, Turnstile secret.
+.env
+.env.*
+!.env.example
+
+# ---- misc ----
+.DS_Store
+*.pem
+*.tsbuildinfo
+coverage/
+
+# ---- logs ----
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ---- editors / deploy ----
+.vercel
+.idea/
+.vscode/*
+!.vscode/settings.json
+
+uniqueweblayer.zip
+
+uniqueweblayer.zip

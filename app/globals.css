@@ -1,0 +1,569 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #8b5cf6;
+  --primary-dark: #7c3aed;
+  --primary-light: #a78bfa;
+  --primary-hover: #9f67ff;
+  --secondary: #000000;
+  --purple-glow: rgba(139, 92, 246, 0.3);
+}
+
+html,
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100vh;
+  background-size: 200% 200%;
+  animation: darkGradient 10s ease infinite;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.text-primary {
+  color: var(--primary);
+}
+
+.border-primary {
+  border-color: var(--primary);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 9999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #9f67ff, #7c3aed);
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px rgba(139, 92, 246, 0.4);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6, #c084fc);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #8b5cf6;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #a78bfa;
+}
+
+::selection {
+  background: rgba(139, 92, 246, 0.3);
+  color: white;
+}
+
+@keyframes darkGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+/* ============================================================
+   THEME SYSTEM
+   ------------------------------------------------------------
+   The site is authored dark-first with classes like `bg-black`,
+   `text-white`, `text-gray-400`. Tailwind v4 compiles those to
+   `var(--color-black)`, `var(--color-white)` …, so the light theme is
+   produced by REDEFINING those variables — not by rewriting hundreds
+   of class names.
+
+   `data-theme` is set on <html> by the header toggle.
+   ============================================================ */
+
+:root {
+  --page-gradient: linear-gradient(135deg, #000000 0%, #1a0b2e 50%, #000000 100%);
+  --page-glow: rgba(139, 92, 246, 0.15);
+  --hero-glow: rgba(147, 51, 234, 0.2);
+  --star-color: #ffffff;
+  --card-shadow: none;
+
+  /* Raised surfaces (modals, form panels, icon tiles).
+     These used to be hardcoded hexes like #140d28, which stayed dark in the
+     light theme while the text on them flipped to dark ink — invisible. */
+  --surface-raised: #140d28;
+  --surface-modal: #120b20;
+  --surface-raised-border: rgba(139, 92, 246, 0.25);
+}
+
+:root[data-theme="light"] {
+  /* --- Core surfaces and ink ------------------------------------- */
+  /* `bg-black` surfaces become paper; `text-white` becomes ink. */
+  --color-black: #ffffff;
+  --color-white: #171226;
+
+  /* --- Text scale ------------------------------------------------
+     On dark these greys read as "quieter than white", so on light they
+     must read as "quieter than ink" — i.e. the ramp is inverted. */
+  --color-gray-100: #241d33;
+  --color-gray-200: #2c2440;
+  --color-gray-300: #3c3452;
+  --color-gray-400: #554d6b;   /* body copy */
+  --color-gray-500: #6b6383;   /* captions, meta */
+  --color-gray-600: #8b849d;
+  --color-gray-700: #aaa3bb;
+  --color-gray-800: #d6d1e2;   /* hairlines */
+  --color-gray-900: #efecf5;   /* very light fills */
+
+  --color-slate-300: #3c3452;
+  --color-slate-400: #554d6b;
+  --color-slate-500: #6b6383;
+
+  /* --- Deep purples are backgrounds on dark, so they must go pale -- */
+  --color-purple-950: #faf8ff;
+  --color-purple-900: #f3eefe;
+  --color-purple-800: #e9e0fc;
+
+  /* --- Pale accents are text on dark, so they must go deep --------- */
+  --color-purple-100: #3b1a63;
+  --color-purple-200: #4a1d80;
+  --color-purple-300: #6d28d9;
+  --color-emerald-200: #065f46;
+  --color-emerald-300: #047857;
+  --color-cyan-300: #0e7490;
+  --color-pink-300: #9d174d;
+  /* Status text in the admin inbox: a warning nobody can read is not a
+     warning, and these sit on white there. */
+  --color-red-200: #991b1b;
+  --color-red-300: #b91c1c;
+  --color-amber-200: #92400e;
+  --color-amber-300: #b45309;
+  --color-green-400: #15803d;
+
+  /* --- Page chrome ------------------------------------------------ */
+  --page-gradient: linear-gradient(180deg, #ffffff 0%, #f7f5fc 55%, #ffffff 100%);
+  --page-glow: rgba(139, 92, 246, 0.05);
+  --hero-glow: rgba(147, 51, 234, 0.07);
+  --star-color: #a78bfa;
+  /* Cards are translucent by design; on white they need a lift instead */
+  --card-shadow: 0 1px 2px rgba(23, 18, 38, 0.04),
+    0 10px 30px -14px rgba(23, 18, 38, 0.16);
+
+  --surface-raised: #ffffff;
+  --surface-modal: #ffffff;
+  --surface-raised-border: rgba(109, 40, 217, 0.18);
+}
+
+body {
+  color: var(--color-white);
+  background: var(--page-gradient);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body::before {
+  background: radial-gradient(circle at center, var(--page-glow) 0%, transparent 70%);
+}
+
+/* Glassy cards: the dark theme relies on light overlays that vanish on white,
+   so give them a faint tint and a shadow instead. */
+:root[data-theme="light"] .bg-white\/5,
+:root[data-theme="light"] .bg-white\/10,
+:root[data-theme="light"] .bg-white\/\[0\.03\],
+:root[data-theme="light"] .bg-white\/\[0\.04\] {
+  background-color: rgba(109, 40, 217, 0.045);
+}
+
+:root[data-theme="light"] [class*="border-white/"],
+:root[data-theme="light"] [class*="border-purple-500/"] {
+  box-shadow: var(--card-shadow);
+}
+
+/* The starfield is decoration — on paper it should be a whisper, not confetti */
+:root[data-theme="light"] .uwl-star {
+  opacity: 0.22 !important;
+}
+
+:root[data-theme="light"] ::selection {
+  background: rgba(139, 92, 246, 0.22);
+  color: #171226;
+}
+
+/* Theme-aware brand logo (see components/BrandLogo.tsx) */
+.uwl-logo-light {
+  display: none;
+}
+
+:root[data-theme="light"] .uwl-logo-dark {
+  display: none;
+}
+
+:root[data-theme="light"] .uwl-logo-light {
+  display: block;
+}
+
+/* ------------------------------------------------------------------
+   Native <select> dropdowns
+   ------------------------------------------------------------------
+   The option list is painted by the OS, not by the page, so it ignores
+   the parent's translucent background. Without explicit colours the
+   options inherited white-on-white and were invisible. These rules set a
+   solid background and a readable text colour for both themes, and add a
+   custom arrow since appearance:none removes the default one.
+   ------------------------------------------------------------------ */
+
+.uwl-select {
+  --select-bg: #140d24;
+  --select-text: #f3f4f6;
+  --select-option-bg: #1b1030;
+  --select-option-hover: #2d1b4e;
+
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  color: var(--select-text);
+  background-color: var(--select-bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23a78bfa'%3E%3Cpath d='M4.5 6.5 8 10l3.5-3.5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+  background-size: 1.1rem;
+  padding-right: 2.6rem;
+  cursor: pointer;
+}
+
+.uwl-select option {
+  background-color: var(--select-option-bg);
+  color: var(--select-text);
+  padding: 0.5rem;
+}
+
+.uwl-select option:checked,
+.uwl-select option:hover {
+  background-color: var(--select-option-hover);
+  color: #ffffff;
+}
+
+/* Placeholder row ("Select Service *") reads as muted, not as a real choice */
+.uwl-select option[value=""] {
+  color: #9ca3af;
+}
+
+:root[data-theme="light"] .uwl-select {
+  --select-bg: #ffffff;
+  --select-text: #1f1536;
+  --select-option-bg: #ffffff;
+  --select-option-hover: #ede9fe;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236d28d9'%3E%3Cpath d='M4.5 6.5 8 10l3.5-3.5z'/%3E%3C/svg%3E");
+}
+
+:root[data-theme="light"] .uwl-select option[value=""] {
+  color: #6b7280;
+}
+
+/* Firefox renders a disabled/placeholder option lighter than we want */
+.uwl-select:invalid {
+  color: var(--select-text);
+}
+
+
+/* ------------------------------------------------------------------
+   Theme-aware raised surfaces
+   ------------------------------------------------------------------
+   Use these instead of a hardcoded dark hex on anything that holds
+   text. A fixed dark panel plus theme-flipped ink = unreadable in
+   light mode, which is exactly what went wrong on the contact form.
+   ------------------------------------------------------------------ */
+
+.uwl-panel {
+  background-color: var(--surface-raised);
+  border-color: var(--surface-raised-border);
+  box-shadow: var(--card-shadow);
+}
+
+.uwl-modal {
+  background-color: var(--surface-modal);
+  border-color: var(--surface-raised-border);
+}
+
+/* Light mode needs a real border and lift, since the dark theme's
+   translucent white overlays disappear against paper. */
+:root[data-theme="light"] .uwl-panel,
+:root[data-theme="light"] .uwl-modal {
+  box-shadow: 0 1px 2px rgba(23, 18, 38, 0.05),
+    0 18px 44px -20px rgba(23, 18, 38, 0.22);
+}
+
+/* Modal scrim. `bg-black/80` would flip to a WHITE veil in light mode,
+   washing a white modal into the page. A scrim should stay dark in both. */
+.uwl-scrim {
+  background-color: rgba(10, 6, 19, 0.78);
+}
+
+/* Intro splash backdrop. It must be fully OPAQUE in both themes — the old
+   version used `from-black ... to-black`, and because `black` flips to white
+   in the light theme the whole overlay became see-through and the page
+   showed straight through the animation. */
+.uwl-splash {
+  background-color: var(--surface-splash);
+}
+
+/* ------------------------------------------------------------------
+   Admin surfaces
+   ------------------------------------------------------------------
+   The admin area has its own three surfaces — page, panel, hairline —
+   instead of reusing the marketing site's starfield-over-black. A
+   dashboard is read for minutes at a time, and numbers need a calm
+   background behind them rather than a gradient.
+   ------------------------------------------------------------------ */
+:root {
+  --admin-bg: #0a0613;
+  --admin-panel: #130d21;
+  --admin-line: rgba(255, 255, 255, 0.08);
+}
+
+:root[data-theme="light"] {
+  --admin-bg: #f6f4fb;
+  --admin-panel: #ffffff;
+  --admin-line: rgba(23, 18, 38, 0.1);
+}
+
+/* ------------------------------------------------------------------
+   Bands of brand colour
+   ------------------------------------------------------------------
+   The top contact bar keeps its purple gradient in both themes, so the
+   text on it must stay white in both. The light theme remaps
+   `--color-white` to near-black ink, which is right everywhere else but
+   turned that bar into dark text on mid-purple. Redefining the tokens on
+   the band itself keeps the rest of the light theme untouched.
+   ------------------------------------------------------------------ */
+.uwl-onbrand {
+  --color-white: #ffffff;
+  --color-purple-200: #e9d5ff;
+  --color-purple-100: #f3e8ff;
+  color: #ffffff;
+}
+
+:root {
+  --surface-splash: #07040f;
+}
+
+:root[data-theme="light"] {
+  --surface-splash: #ffffff;
+}
+
+/* ------------------------------------------------------------------
+   Boot splash — server-rendered, visible on the FIRST paint
+   ------------------------------------------------------------------
+   The React <Preloader/> is a client component, so it can only appear
+   after hydration — the page painted first and the splash dropped on
+   top a moment later. This markup ships inside the server HTML, so the
+   browser paints it before anything else is on screen. The React splash
+   then takes over seamlessly and this one is removed.
+   ------------------------------------------------------------------ */
+
+#uwl-boot-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  /* Decoration only. Without this it swallows the first click, which matters
+     in development where it can stay up for seconds while a route compiles. */
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background-color: var(--surface-splash);
+  /* Safety net: if JavaScript never runs, the overlay must not trap the
+     visitor on a blank screen. It hides itself after 6 seconds. */
+  animation: uwlBootFailsafe 0s linear 6s forwards;
+}
+
+/* Once the React splash has painted, this one is no longer needed.
+   Matches ANY value of the attribute — it is set to "ready" at handoff and
+   "done" when the intro ends, and the boot overlay must stay hidden for both. */
+html[data-uwl-intro] #uwl-boot-splash {
+  display: none;
+}
+
+@keyframes uwlBootFailsafe {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Set by the inline script in layout.tsx on the first pointer/key event, so a
+   visitor who starts clicking before hydration is not left staring at it. */
+html[data-uwl-dismiss] #uwl-boot-splash {
+  display: none;
+}
+
+#uwl-boot-splash .uwl-boot-wash {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(88, 28, 135, 0.4) 0%,
+    rgba(126, 34, 206, 0.2) 50%,
+    transparent 100%
+  );
+}
+
+#uwl-boot-splash .uwl-boot-ring {
+  position: relative;
+  width: 6rem;
+  height: 6rem;
+}
+
+#uwl-boot-splash .uwl-boot-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 4px solid color-mix(in srgb, var(--color-white, #fff) 30%, transparent);
+  border-top-color: var(--color-white, #fff);
+  border-right-color: var(--color-white, #fff);
+  animation: uwlBootSpin 1.5s linear infinite;
+}
+
+#uwl-boot-splash .uwl-boot-logo {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#uwl-boot-splash .uwl-boot-logo img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+}
+
+#uwl-boot-splash .uwl-boot-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#uwl-boot-splash .uwl-boot-dots span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background-color: color-mix(in srgb, var(--color-white, #fff) 70%, transparent);
+  animation: uwlBootBounce 0.6s ease-in-out infinite;
+}
+
+#uwl-boot-splash .uwl-boot-dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+#uwl-boot-splash .uwl-boot-dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes uwlBootSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes uwlBootBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateY(-10px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #uwl-boot-splash .uwl-boot-ring::before,
+  #uwl-boot-splash .uwl-boot-dots span {
+    animation: none;
+  }
+}
