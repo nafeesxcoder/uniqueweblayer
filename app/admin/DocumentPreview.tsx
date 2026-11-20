@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import ModalPortal from "../components/ModalPortal";
 import {
   fetchDocumentBlob,
+  openDocumentInViewer,
   ApiRequestError,
   type ApiDocument,
 } from "../lib/api";
@@ -47,6 +48,20 @@ export default function DocumentPreview({
   const isText = doc.mime_type === "text/plain" || doc.mime_type === "text/csv";
   const isImage = doc.mime_type.startsWith("image/");
   const isPdf = doc.mime_type === "application/pdf";
+
+  /*
+   * Phones: a blob: URL cannot be handed to the native PDF viewer (Android
+   * Chrome shows a blank tab, iOS often refuses). Open a real, 5-minute URL
+   * instead — the server sends it `inline`, the phone's viewer takes over.
+   */
+  const openNative = () => {
+    setError("");
+    openDocumentInViewer(doc, token).catch((err) =>
+      setError(
+        err instanceof ApiRequestError ? err.message : "Could not open that file.",
+      ),
+    );
+  };
 
   // Detect mobile once. `pointer: coarse` is the reliable signal (a resized
   // desktop window is not "mobile", a small phone is).
@@ -149,15 +164,25 @@ export default function DocumentPreview({
             </div>
             <div className="flex shrink-0 items-center gap-2">
               {/* Explicit open button — the fix for mobile PDF */}
-              {url && (
-                <a
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              {isMobile ? (
+                <button
+                  type="button"
+                  onClick={openNative}
                   className="rounded-lg border border-purple-400/40 px-3 py-1.5 text-xs font-medium text-purple-200 transition hover:bg-purple-600/10"
                 >
-                  Open in new tab
-                </a>
+                  Open
+                </button>
+              ) : (
+                url && (
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-lg border border-purple-400/40 px-3 py-1.5 text-xs font-medium text-purple-200 transition hover:bg-purple-600/10"
+                  >
+                    Open in new tab
+                  </a>
+                )
               )}
               <button
                 type="button"
@@ -207,14 +232,13 @@ export default function DocumentPreview({
                         will open in your phone's PDF viewer.
                       </p>
                     </div>
-                    <a
-                      href={url}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <button
+                      type="button"
+                      onClick={openNative}
                       className="rounded-xl bg-linear-to-r from-purple-600 to-pink-600 px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110"
                     >
                       Open PDF
-                    </a>
+                    </button>
                   </div>
                 ) : (
                   <iframe

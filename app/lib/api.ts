@@ -351,17 +351,43 @@ export async function fetchDocumentBlob(doc: ApiDocument, token: string) {
   return response.blob();
 }
 
+/** Asks the server for a 5-minute URL to one file (no auth header needed). */
+export async function fetchDocumentLink(doc: ApiDocument, token: string) {
+  return apiRequest<{ url: string; viewUrl: string }>(
+    `/api/documents/${doc.id}/link`,
+    { method: "POST", token },
+  );
+}
+
+/**
+ * Downloads a file through a real URL rather than a blob.
+ *
+ * Blob downloads silently fail on many phones (iOS in-app browsers, some
+ * Android browsers), while a normal URL with `Content-Disposition: attachment`
+ * works everywhere and lets the phone offer "Open with Word / Drive / Files".
+ * Navigating to an attachment does not leave the page.
+ */
 export async function downloadDocument(doc: ApiDocument, token: string) {
-  const blob = await fetchDocumentBlob(doc, token);
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = doc.original_name;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  // Freed on the next tick — revoking immediately cancels the download in Safari.
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  const { url } = await fetchDocumentLink(doc, token);
+  window.location.href = url;
+}
+
+/**
+ * Opens a file in the phone's own viewer (PDF, image, text) via a real URL.
+ *
+ * The tab is opened synchronously, before the await, so popup blockers treat
+ * it as part of the tap. If the browser blocks it anyway we use the same tab.
+ */
+export async function openDocumentInViewer(doc: ApiDocument, token: string) {
+  const tab = window.open("", "_blank");
+  try {
+    const { viewUrl } = await fetchDocumentLink(doc, token);
+    if (tab && !tab.closed) tab.location.href = viewUrl;
+    else window.location.href = viewUrl;
+  } catch (error) {
+    tab?.close();
+    throw error;
+  }
 }
 
 /* -------------------------------- pricing -------------------------------- */

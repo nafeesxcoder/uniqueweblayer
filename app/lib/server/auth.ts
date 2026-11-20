@@ -36,9 +36,44 @@ export function readAdmin(request: Request): AdminClaims | null {
   if (!token || !env.admin.jwtSecret) return null;
 
   try {
-    return jwt.verify(token, env.admin.jwtSecret) as AdminClaims;
+    const claims = jwt.verify(token, env.admin.jwtSecret) as AdminClaims;
+    // A short-lived file link token is signed with the same secret — it must
+    // never count as an admin session.
+    if (claims.sub !== "admin") return null;
+    return claims;
   } catch {
     return null;
+  }
+}
+
+/**
+ * Short-lived token for one document, put in a URL.
+ *
+ * Phones cannot show a blob: URL in their native PDF/Office viewer, and a plain
+ * link cannot carry the Authorization header. So the admin asks for a link that
+ * works for a few minutes, for one file only, and the phone opens that.
+ */
+const FILE_AUDIENCE = "document-file";
+
+export function issueFileToken(docId: number): string {
+  if (!env.admin.jwtSecret) {
+    throw new Error("JWT_SECRET is not configured");
+  }
+  return jwt.sign({ sub: "file", doc: docId }, env.admin.jwtSecret, {
+    expiresIn: "5m",
+    audience: FILE_AUDIENCE,
+  });
+}
+
+export function verifyFileToken(token: string, docId: number): boolean {
+  if (!token || !env.admin.jwtSecret) return false;
+  try {
+    const claims = jwt.verify(token, env.admin.jwtSecret, {
+      audience: FILE_AUDIENCE,
+    }) as { sub?: string; doc?: number };
+    return claims.sub === "file" && claims.doc === docId;
+  } catch {
+    return false;
   }
 }
 
