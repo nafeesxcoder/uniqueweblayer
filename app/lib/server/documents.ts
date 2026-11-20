@@ -49,10 +49,50 @@ const ALLOWED_MIME = new Set([
   "image/gif",
 ]);
 
-const ALLOWED_EXT = new Set([
-  ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".ppt", ".pptx",
-  ".zip", ".rtf", ".txt", ".csv", ".png", ".jpg", ".jpeg", ".webp", ".gif",
+/** Extension → the type we store. Also the fallback when the phone sends none. */
+const EXT_MIME: Record<string, string> = {
+  ".pdf": "application/pdf",
+  ".doc": "application/msword",
+  ".docx": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ".xls": "application/vnd.ms-excel",
+  ".xlsx": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  ".ppt": "application/vnd.ms-powerpoint",
+  ".pptx": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+  ".zip": "application/zip",
+  ".rtf": "application/rtf",
+  ".txt": "text/plain",
+  ".csv": "text/csv",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".webp": "image/webp",
+  ".gif": "image/gif",
+};
+
+const ALLOWED_EXT = new Set(Object.keys(EXT_MIME));
+
+/**
+ * Many phone browsers (Android especially) send an empty type or
+ * `application/octet-stream`, and some send `text/comma-separated-values` or
+ * `application/vnd.ms-excel` for a CSV. Trust the extension in those cases —
+ * it is already on the allow-list — so uploads from a phone are not refused.
+ */
+const GENERIC_MIME = new Set([
+  "",
+  "application/octet-stream",
+  "binary/octet-stream",
+  "text/comma-separated-values",
+  "application/csv",
+  "text/x-csv",
 ]);
+
+function resolveMime(reported: string, ext: string): string | null {
+  const type = reported.toLowerCase().split(";")[0].trim();
+  if (GENERIC_MIME.has(type)) return EXT_MIME[ext] ?? null;
+  // Windows/Excel reports CSV as application/vnd.ms-excel; store it as CSV.
+  if (ext === ".csv" && type === "application/vnd.ms-excel") return "text/csv";
+  return ALLOWED_MIME.has(type) ? type : null;
+}
 
 export interface DocumentRow {
   id: number;
@@ -118,7 +158,8 @@ export async function saveDocument(
   const ext = path.extname(file.name).toLowerCase();
   // Both checks: browsers report the type inconsistently, and an extension on
   // its own is just text the uploader chose.
-  if (!ALLOWED_EXT.has(ext) || !ALLOWED_MIME.has(file.type)) {
+  const mime = ALLOWED_EXT.has(ext) ? resolveMime(file.type, ext) : null;
+  if (!mime) {
     throw new ApiError(
       400,
       "That file type is not allowed. PDF, Word, Excel, PowerPoint, ZIP, CSV, text and images are.",
@@ -138,7 +179,7 @@ export async function saveDocument(
         (meta.title || file.name).slice(0, 200),
         file.name.slice(0, 255),
         storedName,
-        file.type.slice(0, 120),
+        mime.slice(0, 120),
         file.size,
         meta.note?.slice(0, 500) || null,
       ],

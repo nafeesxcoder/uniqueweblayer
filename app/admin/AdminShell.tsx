@@ -286,7 +286,7 @@ export default function AdminShell({ children }: { children: ReactNode }) {
         {/* ------------------------- more, as a sheet ---------------------- */}
         {moreOpen && (
           <div
-            className="fixed inset-0 z-40 flex items-end bg-black/60 backdrop-blur-sm lg:hidden"
+            className="fixed inset-0 z-40 flex items-end uwl-scrim backdrop-blur-sm lg:hidden"
             onClick={() => setMoreOpen(false)}
             role="dialog"
             aria-modal="true"

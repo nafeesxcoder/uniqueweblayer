@@ -335,7 +335,7 @@ export default function Header() {
 
       {isMenuOpen && (
         <div
-          className="fixed inset-0 bg-black/60 z-[199] md:hidden"
+          className="fixed inset-0 uwl-scrim z-[199] md:hidden"
           onClick={() => setIsMenuOpen(false)}
         />
       )}
