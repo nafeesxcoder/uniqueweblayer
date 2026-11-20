@@ -145,15 +145,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="m-0 p-0" suppressHydrationWarning>
+    <html lang="en" className="m-0 p-0" data-theme="dark" suppressHydrationWarning>
       <head>
         {/*
-          Applies the saved theme before first paint. Without this the page
-          renders dark for a frame and then flips, which looks broken.
+          Applies the theme before first paint. Dark is the default for every
+          visitor (the OS light/dark setting is deliberately ignored); light
+          is used only after someone picks it with the toggle.
         */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var t=localStorage.getItem('uwl_theme');if(!t){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}
+            __html: `(function(){try{var t=localStorage.getItem('uwl_theme');if(t!=='light'){t='dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}
 /* The intro splash is for visitors arriving at the site. /admin is your own
    workspace — you open it several times a day and a four-second animation in
    front of your enquiries is just a wait. Marking it dismissed here, before the
