@@ -222,6 +222,12 @@ body::before {
   --color-amber-200: #92400e;
   --color-amber-300: #b45309;
   --color-green-400: #15803d;
+  /* Mid-tone accents that were light-on-dark text and wash out on white */
+  --color-red-400: #dc2626;
+  --color-orange-300: #c2410c;
+  --color-blue-300: #1d4ed8;
+  --color-purple-400: #7c3aed;
+  --color-pink-400: #db2777;
 
   /* --- Page chrome ------------------------------------------------ */
   --page-gradient: linear-gradient(180deg, #ffffff 0%, #f7f5fc 55%, #ffffff 100%);
@@ -249,7 +255,11 @@ body::before {
 
 /* Glassy cards: the dark theme relies on light overlays that vanish on white,
    so give them a faint tint and a shadow instead. */
+:root[data-theme="light"] .bg-white\/2,
+:root[data-theme="light"] .bg-white\/3,
+:root[data-theme="light"] .bg-white\/4,
 :root[data-theme="light"] .bg-white\/5,
+:root[data-theme="light"] .bg-white\/8,
 :root[data-theme="light"] .bg-white\/10,
 :root[data-theme="light"] .bg-white\/\[0\.03\],
 :root[data-theme="light"] .bg-white\/\[0\.04\] {
@@ -423,6 +433,26 @@ body::before {
   --color-purple-200: #e9d5ff;
   --color-purple-100: #f3e8ff;
   color: #ffffff;
+}
+
+/* Solid brand gradients (primary buttons, badges, icon tiles, chat header)
+   keep their saturated colour in both themes, so text and icons on them must
+   stay white. Without this, light mode painted dark ink on purple/pink.
+   `~=` matches the exact class, so faint tints like `from-purple-600/10`
+   (which sit behind normal text) are left alone. */
+:root[data-theme="light"] :is(
+    [class~="from-purple-600"],
+    [class~="from-purple-500"],
+    [class~="from-pink-500"],
+    [class~="from-cyan-500"],
+    [class~="from-blue-500"],
+    [class~="from-orange-500"],
+    [class~="from-emerald-500"],
+    [class~="bg-purple-600"]
+  ) {
+  --color-white: #ffffff;
+  --color-purple-100: #f3e8ff;
+  --color-purple-200: #e9d5ff;
 }
 
 :root {
