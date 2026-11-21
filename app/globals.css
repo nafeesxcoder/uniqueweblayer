@@ -569,6 +569,144 @@ body::before {
   filter: brightness(0.68) saturate(1.35);
 }
 
+/* ------------------------------------------------------------------
+   Light theme: vivid layer
+   ------------------------------------------------------------------
+   Every card, icon tile and stat picks up an accent pair (--a1, --a2),
+   rotated across grids so a row of cards reads as a colourful set.
+   ------------------------------------------------------------------ */
+html:root[data-theme="light"] {
+  --a1: #7c3aed;
+  --a2: #ec4899;
+  --page-gradient:
+    radial-gradient(900px 620px at 8% 4%, rgba(124, 58, 237, 0.2), transparent 65%),
+    radial-gradient(820px 600px at 96% 18%, rgba(236, 72, 153, 0.15), transparent 65%),
+    radial-gradient(900px 680px at 72% 96%, rgba(6, 182, 212, 0.14), transparent 65%),
+    linear-gradient(180deg, #f6f1ff 0%, #f2ecff 50%, #f8f1fc 100%);
+}
+
+html:root[data-theme="light"] body {
+  background-attachment: fixed;
+}
+
+/* Let the colourful page show through the section backgrounds. */
+html:root[data-theme="light"] :is(main, section, .absolute).bg-black {
+  background-color: transparent;
+}
+
+html:root[data-theme="light"] :is([class~="from-black"], [class~="to-black"]) {
+  --color-black: transparent;
+}
+
+/* Accent rotation */
+html:root[data-theme="light"] :is(.grid, [class*="space-y-"]) > :nth-child(6n + 1) { --a1: #7c3aed; --a2: #ec4899; }
+html:root[data-theme="light"] :is(.grid, [class*="space-y-"]) > :nth-child(6n + 2) { --a1: #2563eb; --a2: #06b6d4; }
+html:root[data-theme="light"] :is(.grid, [class*="space-y-"]) > :nth-child(6n + 3) { --a1: #059669; --a2: #14b8a6; }
+html:root[data-theme="light"] :is(.grid, [class*="space-y-"]) > :nth-child(6n + 4) { --a1: #ea580c; --a2: #f59e0b; }
+html:root[data-theme="light"] :is(.grid, [class*="space-y-"]) > :nth-child(6n + 5) { --a1: #db2777; --a2: #f43f5e; }
+html:root[data-theme="light"] :is(.grid, [class*="space-y-"]) > :nth-child(6n + 6) { --a1: #4f46e5; --a2: #a855f7; }
+
+/* Cards: white face, gradient edge, coloured glow */
+html:root[data-theme="light"] :is([class*="from-gray-900/"], [class*="from-purple-900/"], [class*="from-white/"], .bg-white\/3, .bg-white\/4, .bg-white\/5):is(.rounded-xl, .rounded-2xl, .rounded-3xl).border:not(input, textarea, select, button) {
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(#ffffff, #ffffff) padding-box,
+    linear-gradient(140deg, var(--a1), var(--a2)) border-box;
+  box-shadow:
+    0 2px 6px rgba(49, 27, 99, 0.06),
+    0 16px 34px -16px color-mix(in srgb, var(--a1) 55%, transparent);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+html:root[data-theme="light"] :is([class*="from-gray-900/"], [class*="from-purple-900/"], [class*="from-white/"], .bg-white\/3, .bg-white\/4, .bg-white\/5):is(.rounded-xl, .rounded-2xl, .rounded-3xl).border:not(input, textarea, select, button):hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 4px 10px rgba(49, 27, 99, 0.08),
+    0 26px 46px -16px color-mix(in srgb, var(--a1) 70%, transparent);
+}
+
+/* Rows inside a card: a soft wash of that row's colour */
+html:root[data-theme="light"] :is(.rounded-xl, .rounded-2xl, .rounded-3xl).border :is(.bg-white\/2, .bg-white\/3, .bg-white\/4, .bg-white\/5).border:is(.rounded-lg, .rounded-xl, .rounded-2xl):not(input, textarea, select, button),
+html:root[data-theme="light"] :is(.rounded-xl, .rounded-2xl, .rounded-3xl).border :is(.bg-white\/2, .bg-white\/3, .bg-white\/4, .bg-white\/5).border:is(.rounded-lg, .rounded-xl, .rounded-2xl):not(input, textarea, select, button):hover {
+  background: color-mix(in srgb, var(--a1) 7%, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--a1) 24%, transparent);
+  box-shadow: none;
+  transform: none;
+}
+
+/* Icon tiles: full colour with a white icon, never a pale wash */
+html:root[data-theme="light"] :is([class*="from-purple-600/"], [class*="from-purple-500/"]).flex.items-center.justify-center:is(.rounded-lg, .rounded-xl, .rounded-2xl)[class*="w-"][class*="h-"],
+html:root[data-theme="light"] .group > .flex > [class~="from-purple-600"].w-11 {
+  background: linear-gradient(140deg, var(--a1), var(--a2));
+  box-shadow: 0 8px 16px -6px color-mix(in srgb, var(--a1) 65%, transparent);
+  --color-white: #ffffff;
+  --color-purple-200: #ffffff;
+  --color-purple-300: #ffffff;
+  --color-purple-400: #ffffff;
+  color: #ffffff;
+}
+
+/* Loose icons and big numbers inside a card take the card's colour */
+html:root[data-theme="light"] .border :is(i, svg).text-purple-400,
+html:root[data-theme="light"] .border .text-purple-400 > svg {
+  color: var(--a1);
+}
+
+html:root[data-theme="light"] .border .bg-clip-text.text-3xl {
+  background-image: linear-gradient(120deg, var(--a1), var(--a2));
+}
+
+/* Section labels */
+html:root[data-theme="light"] .inline-flex.rounded-full[class*="bg-purple-600/"] {
+  background: linear-gradient(120deg, #ede4ff, #fde6f3);
+  border-color: rgba(124, 58, 237, 0.35);
+}
+
+/* Primary buttons glow */
+html:root[data-theme="light"] button:is([class~="from-purple-600"], [class~="from-[#751f8c]"]) {
+  box-shadow: 0 12px 24px -10px rgba(124, 58, 237, 0.75);
+}
+
+/* A rich brand footer anchors the page */
+html:root[data-theme="light"] footer.bg-black\/95 {
+  background: linear-gradient(125deg, #1d0b3e 0%, #37106a 55%, #5c1582 100%);
+  --color-black: #12082a;
+  --color-white: #ffffff;
+  --color-gray-100: #f3f0fa;
+  --color-gray-200: #e8e2f5;
+  --color-gray-300: #dcd5ec;
+  --color-gray-400: #cbc3df;
+  --color-gray-500: #b3a9cc;
+  --color-gray-600: #958aae;
+  --color-gray-800: #3d2b63;
+  --color-purple-100: #f3e8ff;
+  --color-purple-200: #e9d5ff;
+  --color-purple-300: #d8b4fe;
+  --color-purple-400: #c084fc;
+  color: #ffffff;
+}
+
+html:root[data-theme="light"] footer .uwl-logo-dark {
+  display: block;
+}
+
+html:root[data-theme="light"] footer .uwl-logo-light {
+  display: none;
+}
+
+html:root[data-theme="light"] footer :is(.bg-white\/5, .bg-white\/10) {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Accent colours were darkened for white cards; on the footer they stay bright. */
+html:root[data-theme="light"] footer :is(p, span, div, a, h3, h4):is([style^="color:"], [style*=";color:"]) {
+  filter: none;
+}
+
+html:root[data-theme="light"] footer .text-\[\#b665f2\] {
+  color: #d8b4fe;
+}
+
 :root {
   --surface-splash: #07040f;
 }
