@@ -32,14 +32,13 @@ export const revalidate = 300;
 /** A project added after the build still renders, on demand. */
 export const dynamicParams = true;
 
+/**
+ * Deliberately empty: a database hiccup while prerendering one project used to
+ * abort the whole build and leave the live site without its assets. Each page
+ * now renders on its first request and is then cached for `revalidate` seconds.
+ */
 export async function generateStaticParams() {
-  try {
-    const projects = await listProjects();
-    return projects.map((p) => ({ slug: p.slug }));
-  } catch {
-    // Database unreachable at build time — pages render on first request.
-    return [];
-  }
+  return [];
 }
 
 const lineLabel = (type: string) =>
