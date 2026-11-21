@@ -36,11 +36,11 @@ export default function About() {
 
   const tools = [
     { name: "React.js", icon: FaReact, color: "#61dafb", delay: 0 },
-    { name: "Next.js", icon: SiNextdotjs, color: "#ffffff", delay: 0.05 },
+    { name: "Next.js", icon: SiNextdotjs, color: "var(--color-white)", delay: 0.05 },
     { name: "React Native", icon: FaReact, color: "#61dafb", delay: 0.1 },
     { name: "Flutter", icon: SiFlutter, color: "#45d1fd", delay: 0.15 },
     { name: "Node.js", icon: FaNodeJs, color: "#68a063", delay: 0.2 },
-    { name: "Express.js", icon: SiExpress, color: "#ffffff", delay: 0.25 },
+    { name: "Express.js", icon: SiExpress, color: "var(--color-white)", delay: 0.25 },
     { name: "MongoDB", icon: SiMongodb, color: "#47A248", delay: 0.3 },
     { name: "TypeScript", icon: SiTypescript, color: "#3178c6", delay: 0.35 },
     { name: "Tailwind CSS", icon: SiTailwindcss, color: "#38bdf8", delay: 0.4 },

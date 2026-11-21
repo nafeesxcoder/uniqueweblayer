@@ -59,7 +59,7 @@ const QUOTE_INCLUDES = [
 ];
 
 const STACK = [
-  { icon: SiNextdotjs, name: "Next.js", color: "#ffffff" },
+  { icon: SiNextdotjs, name: "Next.js", color: "var(--color-white)" },
   { icon: FaReact, name: "React Native", color: "#61dafb" },
   { icon: FaNodeJs, name: "Node.js", color: "#68a063" },
   { icon: SiMysql, name: "MySQL", color: "#4479a1" },

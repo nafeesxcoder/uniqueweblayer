@@ -182,8 +182,8 @@ body::before {
 :root[data-theme="light"] {
   /* --- Core surfaces and ink ------------------------------------- */
   /* `bg-black` surfaces become paper; `text-white` becomes ink. */
-  --color-black: #ffffff;
-  --color-white: #171226;
+  --color-black: #f4f0fc;
+  --color-white: #1a1233;
 
   /* --- Text scale ------------------------------------------------
      On dark these greys read as "quieter than white", so on light they
@@ -191,8 +191,8 @@ body::before {
   --color-gray-100: #241d33;
   --color-gray-200: #2c2440;
   --color-gray-300: #3c3452;
-  --color-gray-400: #554d6b;   /* body copy */
-  --color-gray-500: #6b6383;   /* captions, meta */
+  --color-gray-400: #4a4262;   /* body copy */
+  --color-gray-500: #5f5778;   /* captions, meta */
   --color-gray-600: #8b849d;
   --color-gray-700: #aaa3bb;
   --color-gray-800: #d6d1e2;   /* hairlines */
@@ -230,17 +230,20 @@ body::before {
   --color-pink-400: #db2777;
 
   /* --- Page chrome ------------------------------------------------ */
-  --page-gradient: linear-gradient(180deg, #ffffff 0%, #f7f5fc 55%, #ffffff 100%);
+  --page-gradient: linear-gradient(180deg, #f6f2fe 0%, #f1ecfb 55%, #f6f2fe 100%);
   --page-glow: rgba(139, 92, 246, 0.05);
   --hero-glow: rgba(147, 51, 234, 0.07);
   --star-color: #a78bfa;
   /* Cards are translucent by design; on white they need a lift instead */
-  --card-shadow: 0 1px 2px rgba(23, 18, 38, 0.04),
-    0 10px 30px -14px rgba(23, 18, 38, 0.16);
+  --card-shadow: 0 1px 2px rgba(49, 27, 99, 0.07),
+    0 12px 28px -12px rgba(76, 29, 149, 0.22);
+  --card-shadow-hover: 0 2px 4px rgba(49, 27, 99, 0.08),
+    0 22px 42px -14px rgba(109, 40, 217, 0.34);
+  --card-border: rgba(109, 40, 217, 0.17);
 
   --surface-raised: #ffffff;
   --surface-modal: #ffffff;
-  --surface-raised-border: rgba(109, 40, 217, 0.18);
+  --surface-raised-border: rgba(109, 40, 217, 0.2);
 }
 
 body {
@@ -264,11 +267,6 @@ body::before {
 :root[data-theme="light"] .bg-white\/\[0\.03\],
 :root[data-theme="light"] .bg-white\/\[0\.04\] {
   background-color: rgba(109, 40, 217, 0.045);
-}
-
-:root[data-theme="light"] [class*="border-white/"],
-:root[data-theme="light"] [class*="border-purple-500/"] {
-  box-shadow: var(--card-shadow);
 }
 
 /* The starfield is decoration — on paper it should be a whisper, not confetti */
@@ -435,24 +433,129 @@ body::before {
   color: #ffffff;
 }
 
-/* Solid brand gradients (primary buttons, badges, icon tiles, chat header)
-   keep their saturated colour in both themes, so text and icons on them must
-   stay white. Without this, light mode painted dark ink on purple/pink.
-   `~=` matches the exact class, so faint tints like `from-purple-600/10`
-   (which sit behind normal text) are left alone. */
+/* Solid colour fills (buttons, badges, icon tiles, chat header) keep their
+   saturated colour in both themes, so what sits on them stays white. `~=`
+   matches the exact class, so faint tints like `from-purple-600/10` keep
+   normal dark text. The list covers every gradient used in the source. */
 :root[data-theme="light"] :is(
-    [class~="from-purple-600"],
-    [class~="from-purple-500"],
-    [class~="from-pink-500"],
-    [class~="from-cyan-500"],
+    [class~="from-amber-500"],
+    [class~="from-blue-400"],
     [class~="from-blue-500"],
-    [class~="from-orange-500"],
+    [class~="from-cyan-500"],
     [class~="from-emerald-500"],
-    [class~="bg-purple-600"]
+    [class~="from-green-500"],
+    [class~="from-indigo-500"],
+    [class~="from-orange-500"],
+    [class~="from-pink-500"],
+    [class~="from-purple-400"],
+    [class~="from-purple-500"],
+    [class~="from-purple-600"],
+    [class~="from-red-500"],
+    [class~="from-sky-400"],
+    [class~="from-slate-500"],
+    [class~="from-teal-500"],
+    [class~="from-violet-600"],
+    [class~="from-[#751f8c]"],
+    [class~="from-[#b665f2]"],
+    [class~="bg-purple-600"],
+    [class~="bg-pink-600"],
+    [class~="bg-emerald-500"]
   ) {
   --color-white: #ffffff;
   --color-purple-100: #f3e8ff;
   --color-purple-200: #e9d5ff;
+}
+
+/* White on yellow or lime cannot be read, so those tiles get a dark icon. */
+:root[data-theme="light"] :is(
+    [class~="from-lime-500"],
+    [class~="from-yellow-400"],
+    [class~="from-yellow-500"]
+  ) {
+  --color-white: #3b2a00;
+}
+
+/* ------------------------------------------------------------------
+   Light theme: cards, header and accents
+   ------------------------------------------------------------------ */
+
+/* White cards lifted off the tinted page. */
+:root[data-theme="light"] :is(
+    [class*="from-gray-900/"],
+    [class*="from-purple-900/"],
+    [class*="from-purple-950"],
+    [class*="from-white/"],
+    .bg-white\/2,
+    .bg-white\/3,
+    .bg-white\/4,
+    .bg-white\/5
+  ):is(.rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl).border:not(input, textarea, select, button) {
+  background: #ffffff;
+  border-color: var(--card-border);
+  box-shadow: var(--card-shadow);
+  transition-property: transform, box-shadow, border-color;
+  transition-duration: 0.25s;
+}
+
+:root[data-theme="light"] :is(
+    [class*="from-gray-900/"],
+    [class*="from-purple-900/"],
+    [class*="from-purple-950"],
+    [class*="from-white/"],
+    .bg-white\/2,
+    .bg-white\/3,
+    .bg-white\/4,
+    .bg-white\/5
+  ):is(.rounded-lg, .rounded-xl, .rounded-2xl, .rounded-3xl).border:not(input, textarea, select, button):hover {
+  border-color: rgba(124, 58, 237, 0.5);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* A box inside a card is a soft tint, not a second floating card. */
+:root[data-theme="light"] :is(.rounded-xl, .rounded-2xl, .rounded-3xl).border
+  :is(.bg-white\/2, .bg-white\/3, .bg-white\/4, .bg-white\/5).border:is(.rounded-lg, .rounded-xl, .rounded-2xl):not(input, textarea, select, button),
+:root[data-theme="light"] :is(.rounded-xl, .rounded-2xl, .rounded-3xl).border
+  :is(.bg-white\/2, .bg-white\/3, .bg-white\/4, .bg-white\/5).border:is(.rounded-lg, .rounded-xl, .rounded-2xl):not(input, textarea, select, button):hover {
+  background: #f7f3ff;
+  border-color: rgba(109, 40, 217, 0.12);
+  box-shadow: none;
+}
+
+/* Form fields stay crisp white on any surface. */
+:root[data-theme="light"] :is(input, textarea).border:not([type="checkbox"], [type="radio"]) {
+  background-color: #ffffff;
+  border-color: rgba(109, 40, 217, 0.24);
+}
+
+/* The neon glow behind cards turns muddy on a light page. */
+:root[data-theme="light"] .absolute.inset-0[class*="rounded-"][class*="blur-"] {
+  opacity: 0.22;
+}
+
+/* Decorative colour blobs stay a whisper behind the content. */
+:root[data-theme="light"] .absolute[class*="blur-3xl"] {
+  animation: none;
+  opacity: 0.4;
+}
+
+/* Header, footer and menus read as clean white bars. */
+:root[data-theme="light"] :is(.bg-black\/80, .bg-black\/95) {
+  background-color: rgba(255, 255, 255, 0.96);
+}
+
+:root[data-theme="light"] :is(.bg-black\/60, .bg-black\/70, .bg-black\/85) {
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+/* Brand lilac is too pale for text on white. */
+:root[data-theme="light"] .text-\[\#b665f2\] {
+  color: #7c3aed;
+}
+
+/* Per-item accent colours (prices, categories, links) are chosen for a dark
+   page; darken them here so cyan or amber stays readable on white. */
+:root[data-theme="light"] :is(p, span, div, a, h3, h4):is([style^="color:"], [style*=";color:"]) {
+  filter: brightness(0.68) saturate(1.35);
 }
 
 :root {
