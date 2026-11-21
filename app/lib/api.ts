@@ -373,24 +373,6 @@ export async function downloadDocument(doc: ApiDocument, token: string) {
   window.location.href = url;
 }
 
-/**
- * Opens a file in the phone's own viewer (PDF, image, text) via a real URL.
- *
- * The tab is opened synchronously, before the await, so popup blockers treat
- * it as part of the tap. If the browser blocks it anyway we use the same tab.
- */
-export async function openDocumentInViewer(doc: ApiDocument, token: string) {
-  const tab = window.open("", "_blank");
-  try {
-    const { viewUrl } = await fetchDocumentLink(doc, token);
-    if (tab && !tab.closed) tab.location.href = viewUrl;
-    else window.location.href = viewUrl;
-  } catch (error) {
-    tab?.close();
-    throw error;
-  }
-}
-
 /* -------------------------------- products ------------------------------- */
 
 export type ProductPayload = Omit<Product, "id" | "slug" | "updatedAt">;

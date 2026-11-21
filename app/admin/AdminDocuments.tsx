@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useAdminSession } from "./AdminShell";
-import DocumentPreview, { canPreview } from "./DocumentPreview";
+import DocumentPreview from "./DocumentPreview";
 import {
   fetchDocuments,
   uploadDocument,
@@ -176,6 +176,8 @@ export default function AdminDocuments() {
       setUploading(false);
     }
   };
+
+  const closePreview = useCallback(() => setPreviewing(null), []);
 
   const download = async (doc: ApiDocument) => {
     setBusyId(doc.id);
@@ -380,14 +382,12 @@ export default function AdminDocuments() {
                 </div>
 
                 <div className="flex shrink-0 items-center gap-2">
-                  {canPreview(doc) && (
-                    <button
-                      onClick={() => setPreviewing(doc)}
-                      className="rounded-full border border-white/15 px-3 py-1.5 text-xs text-gray-300 transition hover:bg-white/5"
-                    >
-                      View
-                    </button>
-                  )}
+                  <button
+                    onClick={() => setPreviewing(doc)}
+                    className="rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-4 py-1.5 text-xs font-semibold text-white transition hover:brightness-110"
+                  >
+                    View
+                  </button>
                   <button
                     onClick={() => void download(doc)}
                     disabled={busy}
@@ -413,7 +413,8 @@ export default function AdminDocuments() {
         <DocumentPreview
           doc={previewing}
           token={token}
-          onClose={() => setPreviewing(null)}
+          onDownload={() => void download(previewing)}
+          onClose={closePreview}
         />
       )}
     </div>

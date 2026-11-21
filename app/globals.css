@@ -792,6 +792,53 @@ html:root[data-theme="light"] footer.bg-black\/95 {
   --color-gray-500: #b3a9cc;
 }
 
+/* ------------------------------------------------------------------
+   Document viewer: paper stays white in both themes
+   ------------------------------------------------------------------ */
+.uwl-doc {
+  background: #ffffff;
+  color: #1f1933;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.uwl-doc h1 { font-size: 1.6rem; font-weight: 700; margin: 0 0 0.8rem; }
+.uwl-doc h2 { font-size: 1.3rem; font-weight: 700; margin: 1rem 0 0.6rem; }
+.uwl-doc h3 { font-size: 1.1rem; font-weight: 600; margin: 0.9rem 0 0.5rem; }
+.uwl-doc p { margin: 0 0 0.7rem; }
+.uwl-doc ul { list-style: disc; margin: 0 0 0.8rem 1.4rem; }
+.uwl-doc ol { list-style: decimal; margin: 0 0 0.8rem 1.4rem; }
+.uwl-doc a { color: #6d28d9; text-decoration: underline; }
+.uwl-doc img { display: block; height: auto; margin: 0.8rem auto; max-width: 100%; }
+.uwl-doc table { border-collapse: collapse; display: block; margin: 0.8rem 0; overflow-x: auto; }
+.uwl-doc td, .uwl-doc th { border: 1px solid #d9d4e6; padding: 0.35rem 0.6rem; }
+
+.uwl-sheet { border-collapse: collapse; color: #1f1933; font-size: 0.78rem; }
+.uwl-sheet td, .uwl-sheet th { border: 1px solid #e2deec; padding: 0.3rem 0.6rem; white-space: nowrap; }
+.uwl-sheet th { background: #f3f0fa; color: #6b6383; font-weight: 500; left: 0; position: sticky; text-align: center; }
+.uwl-sheet tr:first-child td { background: #faf8ff; font-weight: 600; }
+
+/* ------------------------------------------------------------------
+   Footer watermark
+   ------------------------------------------------------------------ */
+.uwl-watermark {
+  margin-bottom: -0.35rem;
+  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
+}
+
+.uwl-watermark-text {
+  font-family: inherit;
+  font-size: 176px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uwl-watermark-text[data-sheen] { display: none; }
+}
+
 :root {
   --surface-splash: #07040f;
 }

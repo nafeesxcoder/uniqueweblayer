@@ -1,109 +1,68 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { FiDownload } from "react-icons/fi";
 import ModalPortal from "../components/ModalPortal";
 import {
   fetchDocumentBlob,
-  openDocumentInViewer,
   ApiRequestError,
   type ApiDocument,
 } from "../lib/api";
+import {
+  documentKind,
+  DocxViewer,
+  PdfViewer,
+  PptxViewer,
+  RtfViewer,
+  XlsxViewer,
+  ZipViewer,
+} from "./DocumentViewers";
 
 /**
- * Opens a document without leaving the admin area.
- *
- * IMPORTANT — mobile PDF:
- * iOS Safari and most mobile browsers do NOT render a PDF inside <iframe>.
- * On desktop the iframe works; on mobile we show a big "Open PDF" button
- * that opens the blob in a new tab, which fires the OS's native PDF viewer
- * (Preview on iOS, Drive/Chrome PDF viewer on Android).
+ * Opens any stored document inside the admin area, on desktop and on phones,
+ * without saving it to the device. Downloading stays a separate, explicit tap.
  */
-
-export function canPreview(doc: ApiDocument): boolean {
-  const mime = doc.mime_type || "";
-  return (
-    mime === "application/pdf" ||
-    mime === "text/plain" ||
-    mime === "text/csv" ||
-    mime.startsWith("image/")
-  );
-}
-
 export default function DocumentPreview({
   doc,
   token,
+  onDownload,
   onClose,
 }: {
   doc: ApiDocument;
   token: string;
+  onDownload: () => void;
   onClose: () => void;
 }) {
-  const [url, setUrl] = useState<string>("");
-  const [text, setText] = useState<string>("");
+  const kind = documentKind(doc);
+  const [blob, setBlob] = useState<Blob | null>(null);
+  const [imageUrl, setImageUrl] = useState("");
+  const [text, setText] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
-  /** Detected once on mount — not on every render. */
-  const [isMobile, setIsMobile] = useState(false);
-
-  const isText = doc.mime_type === "text/plain" || doc.mime_type === "text/csv";
-  const isImage = doc.mime_type.startsWith("image/");
-  const isPdf = doc.mime_type === "application/pdf";
-
-  /*
-   * Phones: a blob: URL cannot be handed to the native PDF viewer (Android
-   * Chrome shows a blank tab, iOS often refuses). Open a real, 5-minute URL
-   * instead — the server sends it `inline`, the phone's viewer takes over.
-   */
-  const openNative = () => {
-    setError("");
-    openDocumentInViewer(doc, token).catch((err) =>
-      setError(
-        err instanceof ApiRequestError ? err.message : "Could not open that file.",
-      ),
-    );
-  };
-
-  // Detect mobile once. `pointer: coarse` is the reliable signal (a resized
-  // desktop window is not "mobile", a small phone is).
-  useEffect(() => {
-    const mq = window.matchMedia("(pointer: coarse)");
-    setIsMobile(mq.matches);
-    const onChange = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener?.("change", onChange);
-    return () => mq.removeEventListener?.("change", onChange);
-  }, []);
 
   useEffect(() => {
     let objectUrl = "";
     let cancelled = false;
 
-    // Reset state each time the doc changes (rare, but correct).
     setLoading(true);
     setError("");
+    setBlob(null);
     setText("");
-    setUrl("");
+    setImageUrl("");
 
     fetchDocumentBlob(doc, token)
-      .then(async (blob) => {
+      .then(async (file) => {
         if (cancelled) return;
-
-        if (isText) {
-          setText(await blob.text());
+        if (kind === "text") {
+          const content = await file.text();
+          if (!cancelled) setText(content);
+        } else if (kind === "image") {
+          objectUrl = URL.createObjectURL(
+            new Blob([file], { type: doc.mime_type || "image/png" }),
+          );
+          setImageUrl(objectUrl);
         } else {
-          /*
-           * Force the correct MIME. Some backends send application/octet-stream,
-           * which makes mobile browsers download the file instead of displaying
-           * it — even when the URL ends in .pdf.
-           */
-          const typed = new Blob([blob], {
-            type: isPdf
-              ? "application/pdf"
-              : isImage
-                ? blob.type || "image/png"
-                : blob.type,
-          });
-          objectUrl = URL.createObjectURL(typed);
-          setUrl(objectUrl);
+          setBlob(file);
         }
       })
       .catch((err) => {
@@ -122,7 +81,7 @@ export default function DocumentPreview({
       cancelled = true;
       if (objectUrl) URL.revokeObjectURL(objectUrl);
     };
-  }, [doc, token, isText, isPdf, isImage]);
+  }, [doc, token, kind]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -143,47 +102,33 @@ export default function DocumentPreview({
   return (
     <ModalPortal>
       <div
-        className="fixed inset-0 z-100 flex items-center justify-center uwl-scrim p-4 backdrop-blur-sm sm:p-8"
+        className="fixed inset-0 z-100 flex items-center justify-center uwl-scrim p-2 backdrop-blur-sm sm:p-8"
         onClick={onClose}
         role="dialog"
         aria-modal="true"
         aria-label={`Preview of ${doc.title}`}
       >
         <div
-          className="uwl-modal flex h-full max-h-[90vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl border shadow-2xl"
+          className="uwl-modal flex h-full w-full max-w-5xl flex-col overflow-hidden rounded-2xl border shadow-2xl sm:max-h-[92vh]"
           onClick={(e) => e.stopPropagation()}
         >
-          <div className="flex items-start justify-between gap-4 border-b border-white/10 px-5 py-4">
+          <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3 sm:px-5">
             <div className="min-w-0">
               <h2 className="truncate text-base font-semibold text-white">
                 {doc.title}
               </h2>
-              <p className="truncate text-xs text-gray-500">
-                {doc.original_name}
-              </p>
+              <p className="truncate text-xs text-gray-500">{doc.original_name}</p>
             </div>
-            <div className="flex shrink-0 items-center gap-2">
-              {/* Explicit open button — the fix for mobile PDF */}
-              {isMobile ? (
-                <button
-                  type="button"
-                  onClick={openNative}
-                  className="rounded-lg border border-purple-400/40 px-3 py-1.5 text-xs font-medium text-purple-200 transition hover:bg-purple-600/10"
-                >
-                  Open
-                </button>
-              ) : (
-                url && (
-                  <a
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-lg border border-purple-400/40 px-3 py-1.5 text-xs font-medium text-purple-200 transition hover:bg-purple-600/10"
-                  >
-                    Open in new tab
-                  </a>
-                )
-              )}
+            <div className="flex shrink-0 items-center gap-1">
+              <button
+                type="button"
+                onClick={onDownload}
+                aria-label="Download"
+                title="Download"
+                className="rounded-lg p-2 text-gray-400 transition hover:text-white"
+              >
+                <FiDownload />
+              </button>
               <button
                 type="button"
                 onClick={onClose}
@@ -195,11 +140,9 @@ export default function DocumentPreview({
             </div>
           </div>
 
-          <div className="flex-1 overflow-auto bg-white/4">
+          <div className="min-h-0 flex-1 overflow-auto bg-white/4">
             {loading && (
-              <p className="py-20 text-center text-sm text-gray-500">
-                Opening…
-              </p>
+              <p className="py-20 text-center text-sm text-gray-500">Opening…</p>
             )}
 
             {error && (
@@ -208,65 +151,44 @@ export default function DocumentPreview({
               </p>
             )}
 
-            {/* ---------- PDF ---------- */}
-            {!loading && !error && isPdf && url && (
+            {!loading && !error && (
               <>
-                {/*
-                 * Mobile: iframes DO NOT render PDFs on iOS Safari or most
-                 * Android browsers. Show a big button that opens the blob in
-                 * a new tab — the OS's native viewer handles the rendering.
-                 */}
-                {isMobile ? (
-                  <div className="flex min-h-[60vh] flex-col items-center justify-center gap-5 p-6 text-center">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-2xl border border-red-500/30 bg-red-500/10">
-                      <span className="text-lg font-bold text-red-300">
-                        PDF
-                      </span>
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-white">
-                        Tap to open the PDF
-                      </p>
-                      <p className="mt-1 text-xs text-gray-500">
-                        Mobile browsers do not show PDFs inside the app — it
-                        will open in your phone's PDF viewer.
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={openNative}
-                      className="rounded-xl bg-linear-to-r from-purple-600 to-pink-600 px-6 py-3 text-sm font-semibold text-white transition hover:brightness-110"
-                    >
-                      Open PDF
-                    </button>
+                {kind === "image" && imageUrl && (
+                  <div className="flex min-h-full items-center justify-center p-4">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={imageUrl}
+                      alt={doc.title}
+                      className="max-h-[78vh] max-w-full rounded-lg object-contain"
+                    />
                   </div>
-                ) : (
-                  <iframe
-                    src={url}
-                    title={doc.title}
-                    className="h-full min-h-[70vh] w-full border-0 bg-white"
-                  />
+                )}
+
+                {kind === "text" && (
+                  <pre className="whitespace-pre-wrap wrap-break-word p-5 font-mono text-xs leading-relaxed text-gray-300">
+                    {text}
+                  </pre>
+                )}
+
+                {blob && kind === "pdf" && <PdfViewer blob={blob} />}
+                {blob && kind === "docx" && <DocxViewer blob={blob} />}
+                {blob && kind === "xlsx" && <XlsxViewer blob={blob} />}
+                {blob && kind === "pptx" && <PptxViewer blob={blob} />}
+                {blob && kind === "zip" && <ZipViewer blob={blob} />}
+                {blob && kind === "rtf" && <RtfViewer blob={blob} />}
+
+                {kind === "legacy" && (
+                  <div className="mx-auto max-w-md px-6 py-20 text-center">
+                    <p className="font-semibold text-white">
+                      This older Office format cannot be shown in the browser
+                    </p>
+                    <p className="mt-2 text-sm text-gray-400">
+                      Save it as .docx, .xlsx or .pptx and upload it again to view
+                      it here.
+                    </p>
+                  </div>
                 )}
               </>
-            )}
-
-            {/* ---------- Image ---------- */}
-            {!loading && !error && isImage && url && (
-              <div className="flex min-h-[50vh] items-center justify-center p-5">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={url}
-                  alt={doc.title}
-                  className="max-h-[75vh] max-w-full rounded-lg object-contain"
-                />
-              </div>
-            )}
-
-            {/* ---------- Text ---------- */}
-            {!loading && !error && isText && (
-              <pre className="whitespace-pre-wrap wrap-break-word p-5 font-mono text-xs leading-relaxed text-gray-300">
-                {text}
-              </pre>
             )}
           </div>
         </div>
