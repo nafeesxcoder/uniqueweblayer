@@ -2,6 +2,7 @@ import Script from "next/script";
 import HeroSection from "./components/HeroSection";
 import StatsBar from "./components/StatsBar";
 import ProjectsSection from "./components/ProjectsSection";
+import ProductsHome from "./components/ProductsHome";
 import ServicesSection from "./components/ServicesSection";
 import ProcessSection from "./components/ProcessSection";
 import IndustriesSection from "./components/IndustriesSection";
@@ -33,6 +34,9 @@ export default function Home() {
 
       {/* Selected work */}
       <ProjectsSection />
+
+      {/* Our own products */}
+      <ProductsHome />
 
       {/* How we deliver */}
       <ProcessSection />

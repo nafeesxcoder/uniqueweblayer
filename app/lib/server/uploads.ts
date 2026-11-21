@@ -41,6 +41,34 @@ const MAX_WIDTH = 1600;
 const MAX_HEIGHT = 1200;
 const WEBP_QUALITY = 82;
 
+/** Product logos and screenshots. Raster only, because these are shown publicly. */
+export async function saveProductImage(file: unknown): Promise<string | null> {
+  if (!(file instanceof File) || file.size === 0) return null;
+
+  if (file.size > MAX_BYTES) {
+    throw new ApiError(400, "Image is too large — 5 MB maximum");
+  }
+  if (!ALLOWED.has(file.type) || file.type === "image/svg+xml") {
+    throw new ApiError(400, "Upload a PNG, JPG, WEBP, GIF or AVIF image");
+  }
+
+  const filename = `product-${Date.now()}-${crypto.randomBytes(6).toString("hex")}.webp`;
+  try {
+    await sharp(Buffer.from(await file.arrayBuffer()))
+      .rotate()
+      .resize({ width: MAX_WIDTH, height: 2400, fit: "inside", withoutEnlargement: true })
+      .webp({ quality: WEBP_QUALITY })
+      .toFile(path.join(UPLOAD_DIR, filename));
+  } catch (error) {
+    throw new ApiError(
+      400,
+      `Could not process that image: ${(error as Error).message}`,
+    );
+  }
+
+  return `/uploads/${filename}`;
+}
+
 /**
  * Stores a client logo for a testimonial. Always re-encoded to WebP: logos are
  * shown publicly, and refusing SVG means an upload can never carry a script.

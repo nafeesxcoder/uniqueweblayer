@@ -1,6 +1,7 @@
 "use client";
 
 import type { ServiceTypeSlug } from "./serviceTypes";
+import type { Product } from "./productTypes";
 
 /**
  * Browser-side client for this app's own /api routes.
@@ -388,6 +389,59 @@ export async function openDocumentInViewer(doc: ApiDocument, token: string) {
     tab?.close();
     throw error;
   }
+}
+
+/* -------------------------------- products ------------------------------- */
+
+export type ProductPayload = Omit<Product, "id" | "slug" | "updatedAt">;
+
+/** Pass a token with `all` to include hidden products. */
+export async function fetchProducts(token?: string | null, all = false) {
+  const data = await apiRequest<{ products: Product[] }>(
+    `/api/products${all ? "?all=1" : ""}`,
+    { token, cache: "no-store" },
+  );
+  return data.products;
+}
+
+export async function createProductRequest(input: ProductPayload, token: string) {
+  const data = await apiRequest<{ product: Product }>("/api/products", {
+    method: "POST",
+    body: input,
+    token,
+  });
+  return data.product;
+}
+
+export async function updateProductRequest(
+  id: number,
+  input: Partial<ProductPayload>,
+  token: string,
+) {
+  const data = await apiRequest<{ product: Product }>(`/api/products/${id}`, {
+    method: "PATCH",
+    body: input,
+    token,
+  });
+  return data.product;
+}
+
+export async function deleteProductRequest(id: number, token: string) {
+  return apiRequest<{ success: boolean }>(`/api/products/${id}`, {
+    method: "DELETE",
+    token,
+  });
+}
+
+export async function uploadProductImage(file: File, token: string) {
+  const form = new FormData();
+  form.append("image", file);
+  const data = await apiRequest<{ path: string }>("/api/products/upload", {
+    method: "POST",
+    body: form,
+    token,
+  });
+  return data.path;
 }
 
 /* -------------------------------- pricing -------------------------------- */

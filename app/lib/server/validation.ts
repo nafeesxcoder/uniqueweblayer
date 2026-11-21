@@ -201,6 +201,61 @@ export const createTestimonialSchema = z.object({
 
 export const updateTestimonialSchema = createTestimonialSchema.partial();
 
+/* -------------------------------- products ------------------------------- */
+
+const productUrl = trimmed(500).refine(
+  (v) => v === "" || /^https?:\/\//i.test(v),
+  "Must start with https://",
+);
+const uploadPath = trimmed(500).refine(
+  (v) => v === "" || /^\/uploads\/[\w.-]+$/.test(v),
+  "That image path is not valid",
+);
+const hexColor = z.string().regex(/^#[0-9a-fA-F]{6}$/, "Pick a valid colour");
+const shortText = trimmed(200);
+const longText = trimmed(800);
+const titled = z.object({ title: shortText, text: longText });
+
+export const productSchema = z.object({
+  name: trimmed(120).pipe(z.string().min(2, "Enter the product name")),
+  tagline: trimmed(200).pipe(z.string().min(2, "Enter a headline")),
+  category: trimmed(120).pipe(z.string().min(2, "Enter a category")),
+  summary: trimmed(400).pipe(z.string().min(10, "The summary looks too short")),
+  description: trimmed(5000).pipe(z.string().min(10, "The description looks too short")),
+  status: z.enum(["live", "beta", "coming-soon"]),
+  websiteUrl: productUrl,
+  androidUrl: productUrl,
+  iosUrl: productUrl,
+  ctaLabel: trimmed(40).pipe(z.string().min(2, "Enter the button text")),
+  brandColor: hexColor,
+  accentColor: hexColor,
+  logo: uploadPath,
+  heroImage: uploadPath,
+  gallery: z.array(z.object({ src: uploadPath, caption: shortText })).max(30),
+  content: z.object({
+    highlights: z.array(z.object({ value: trimmed(40), label: trimmed(80) })).max(8),
+    problems: z.array(titled).max(12),
+    features: z.array(titled).max(40),
+    steps: z.array(titled).max(12),
+    audience: z.array(trimmed(80)).max(40),
+    plans: z
+      .array(
+        z.object({
+          name: trimmed(60),
+          price: trimmed(60),
+          note: trimmed(120),
+          items: z.array(trimmed(120)).max(30),
+        }),
+      )
+      .max(8),
+    faqs: z.array(z.object({ question: shortText, answer: longText })).max(30),
+  }),
+  isPublished: z.boolean(),
+  sortOrder: z.coerce.number().int(),
+});
+
+export const updateProductSchema = productSchema.partial();
+
 export const contactSchema = z.object({
   name: trimmed(180).pipe(z.string().min(2, "Please enter your name")),
   email: z.string().trim().email("Enter a valid email address").max(255),

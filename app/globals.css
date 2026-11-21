@@ -565,7 +565,7 @@ body::before {
 
 /* Per-item accent colours (prices, categories, links) are chosen for a dark
    page; darken them here so cyan or amber stays readable on white. */
-:root[data-theme="light"] :is(p, span, div, a, h3, h4):is([style^="color:"], [style*=";color:"]) {
+:root[data-theme="light"] :is(p, span, div, a, h3, h4):is([style^="color:"], [style*=";color:"]):not([style*="background"]) {
   filter: brightness(0.68) saturate(1.35);
 }
 
