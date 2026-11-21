@@ -466,6 +466,17 @@ body::before {
   --color-purple-200: #e9d5ff;
 }
 
+/* Tiles with no text colour of their own inherit the page ink, because the
+   body resolved --color-white before the override above. */
+:root[data-theme="light"] :is(
+    [class~="from-purple-600"],
+    [class~="from-purple-500"],
+    [class~="from-pink-500"],
+    [class~="from-[#751f8c]"]
+  ):not(.text-transparent) {
+  color: var(--color-white);
+}
+
 /* White on yellow or lime cannot be read, so those tiles get a dark icon. */
 :root[data-theme="light"] :is(
     [class~="from-lime-500"],
