@@ -20,7 +20,6 @@ import Image from "next/image";
 import { services as allServices } from "../data/services";
 import { company } from "../data/site";
 import BrandLogo from "./BrandLogo";
-import FooterWatermark from "./FooterWatermark";
 import Icon from "./Icon";
 
 const footerLinks = {
@@ -379,8 +378,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Brand signature */}
-      <FooterWatermark />
 
       {/* Privacy Policy Modal */}
       <Modal

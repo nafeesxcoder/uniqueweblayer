@@ -819,26 +819,6 @@ html:root[data-theme="light"] footer.bg-black\/95 {
 .uwl-sheet th { background: #f3f0fa; color: #6b6383; font-weight: 500; left: 0; position: sticky; text-align: center; }
 .uwl-sheet tr:first-child td { background: #faf8ff; font-weight: 600; }
 
-/* ------------------------------------------------------------------
-   Footer watermark
-   ------------------------------------------------------------------ */
-.uwl-watermark {
-  margin-bottom: -0.35rem;
-  -webkit-mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
-  mask-image: linear-gradient(180deg, #000 45%, transparent 100%);
-}
-
-.uwl-watermark-text {
-  font-family: inherit;
-  font-size: 176px;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .uwl-watermark-text[data-sheen] { display: none; }
-}
-
 :root {
   --surface-splash: #07040f;
 }
