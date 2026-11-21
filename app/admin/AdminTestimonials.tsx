@@ -140,10 +140,8 @@ export default function AdminTestimonials() {
         <div className="rounded-2xl border border-dashed border-purple-500/25 px-6 py-16 text-center">
           <p className="text-gray-400">No testimonials yet.</p>
           <p className="mx-auto mt-2 max-w-md text-sm text-gray-500">
-            Until there is one here, the Client Work section on the home page
-            describes each project in your own words — which is honest, and
-            still convincing. One real line from a client beats ten invented
-            ones.
+            Publish one and it appears in the Testimonials section on the home
+            page. Until then that section stays hidden.
           </p>
           <button
             onClick={() => {
