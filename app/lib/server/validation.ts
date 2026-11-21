@@ -184,6 +184,14 @@ export const createTestimonialSchema = z.object({
   author: trimmed(120).pipe(z.string().min(2, "Whose words are these?")),
   role: trimmed(160).optional().default(""),
   company: trimmed(160).optional().default(""),
+  // Only a path produced by the logo upload route, never an outside URL.
+  logo: z
+    .string()
+    .trim()
+    .max(500)
+    .regex(/^(\/uploads\/[\w.-]+)?$/, "That logo path is not valid")
+    .optional()
+    .default(""),
   quote: trimmed(2000).pipe(z.string().min(10, "The quote looks too short")),
   rating: optionalRating,
   projectId: optionalId,

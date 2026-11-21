@@ -14,6 +14,7 @@ export interface Testimonial {
   author: string;
   role: string | null;
   company: string | null;
+  logo: string | null;
   quote: string;
   rating: number | null;
   project_id: number | null;
@@ -30,7 +31,7 @@ export interface Testimonial {
 }
 
 const FIELDS = `
-  t.id, t.author, t.role, t.company, t.quote, t.rating, t.project_id,
+  t.id, t.author, t.role, t.company, t.logo, t.quote, t.rating, t.project_id,
   t.is_published, t.sort_order, t.created_at, t.updated_at,
   p.title AS project_title, p.slug AS project_slug, p.image AS project_image,
   p.color AS project_color, p.live_link AS project_live_link
@@ -81,6 +82,7 @@ export interface TestimonialInput {
   author: string;
   role?: string;
   company?: string;
+  logo?: string;
   quote: string;
   rating?: number | null;
   projectId?: number | null;
@@ -93,12 +95,13 @@ export async function createTestimonial(
 ): Promise<Testimonial | null> {
   const result = await execute(
     `INSERT INTO testimonials
-       (author, role, company, quote, rating, project_id, is_published, sort_order)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+       (author, role, company, logo, quote, rating, project_id, is_published, sort_order)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
     [
       data.author,
       data.role || null,
       data.company || null,
+      data.logo || null,
       data.quote,
       data.rating ?? null,
       data.projectId ?? null,
@@ -122,6 +125,7 @@ export async function updateTestimonial(
   if (data.author !== undefined) columns.author = data.author;
   if (data.role !== undefined) columns.role = data.role || null;
   if (data.company !== undefined) columns.company = data.company || null;
+  if (data.logo !== undefined) columns.logo = data.logo || null;
   if (data.quote !== undefined) columns.quote = data.quote;
   if (data.rating !== undefined) columns.rating = data.rating ?? null;
   if (data.projectId !== undefined) columns.project_id = data.projectId ?? null;

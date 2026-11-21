@@ -435,6 +435,7 @@ export interface ApiTestimonial {
   author: string;
   role: string | null;
   company: string | null;
+  logo: string | null;
   quote: string;
   rating: number | null;
   project_id: number | null;
@@ -454,6 +455,7 @@ export interface TestimonialInput {
   author: string;
   role?: string;
   company?: string;
+  logo?: string;
   quote: string;
   rating?: number | null;
   projectId?: number | null;
@@ -468,6 +470,17 @@ export async function fetchTestimonials(token?: string | null, all = false) {
     { token, cache: "no-store" },
   );
   return data.testimonials;
+}
+
+export async function uploadTestimonialLogo(file: File, token: string) {
+  const form = new FormData();
+  form.append("logo", file);
+  const data = await apiRequest<{ logo: string }>("/api/testimonials/logo", {
+    method: "POST",
+    body: form,
+    token,
+  });
+  return data.logo;
 }
 
 export async function createTestimonial(input: TestimonialInput, token: string) {

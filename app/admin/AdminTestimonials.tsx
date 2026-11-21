@@ -160,6 +160,24 @@ export default function AdminTestimonials() {
           {items.map((t) => (
             <li key={t.id} className="uwl-panel rounded-2xl border p-5">
               <div className="flex flex-wrap items-start justify-between gap-4">
+                <div
+                  className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 p-1"
+                  style={{ backgroundColor: "#ffffff" }}
+                >
+                  {t.logo ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={t.logo}
+                      alt={`${t.company || t.author} logo`}
+                      className="h-full w-full object-contain"
+                    />
+                  ) : (
+                    <span className="text-center text-[9px]" style={{ color: "#6b6383" }}>
+                      No logo
+                    </span>
+                  )}
+                </div>
+
                 <div className="min-w-0 flex-1">
                   <div className="mb-2 flex flex-wrap items-center gap-2">
                     <span className="font-semibold text-white">{t.author}</span>

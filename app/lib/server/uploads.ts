@@ -42,6 +42,37 @@ const MAX_HEIGHT = 1200;
 const WEBP_QUALITY = 82;
 
 /**
+ * Stores a client logo for a testimonial. Always re-encoded to WebP: logos are
+ * shown publicly, and refusing SVG means an upload can never carry a script.
+ */
+export async function saveTestimonialLogo(file: unknown): Promise<string | null> {
+  if (!(file instanceof File) || file.size === 0) return null;
+
+  if (file.size > MAX_BYTES) {
+    throw new ApiError(400, "Logo is too large — 5 MB maximum");
+  }
+  if (!ALLOWED.has(file.type) || file.type === "image/svg+xml") {
+    throw new ApiError(400, "Upload the logo as PNG, JPG, WEBP, GIF or AVIF");
+  }
+
+  const filename = `logo-${Date.now()}-${crypto.randomBytes(6).toString("hex")}.webp`;
+  try {
+    await sharp(Buffer.from(await file.arrayBuffer()))
+      .rotate()
+      .resize({ width: 400, height: 400, fit: "inside", withoutEnlargement: true })
+      .webp({ quality: 90 })
+      .toFile(path.join(UPLOAD_DIR, filename));
+  } catch (error) {
+    throw new ApiError(
+      400,
+      `Could not process that logo: ${(error as Error).message}`,
+    );
+  }
+
+  return `/uploads/${filename}`;
+}
+
+/**
  * Processes one uploaded image and returns the public path to store on the row,
  * or null when no file was supplied.
  */

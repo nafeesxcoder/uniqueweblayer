@@ -40,6 +40,7 @@ export const POST = handler(async (request: Request) => {
     quote: String(raw.quote ?? ""),
     role: String(raw.role ?? ""),
     company: String(raw.company ?? ""),
+    logo: String(raw.logo ?? ""),
     rating: raw.rating ?? null,
     projectId: raw.projectId ?? null,
     isPublished: raw.isPublished ?? true,
