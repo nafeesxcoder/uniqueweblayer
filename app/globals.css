@@ -707,6 +707,91 @@ html:root[data-theme="light"] footer .text-\[\#b665f2\] {
   color: #d8b4fe;
 }
 
+/* ------------------------------------------------------------------
+   Light theme: buttons and text
+   ------------------------------------------------------------------ */
+html:root[data-theme="light"] {
+  --color-gray-300: #2f2845;
+  --color-gray-400: #3f3856;
+  --color-gray-500: #554e6e;
+}
+
+html:root[data-theme="light"] body {
+  text-rendering: optimizeLegibility;
+}
+
+/* The light palette turns purple-800 pale, which faded gradients to white
+   right behind their label. Solid fills keep the real deep purples. */
+html:root[data-theme="light"] [class~="to-purple-800"] {
+  --color-purple-800: #6b21a8;
+  --color-purple-900: #581c87;
+}
+
+/* Primary buttons: one deep gradient, white label at full contrast */
+html:root[data-theme="light"] :is(button, a):is([class~="from-purple-600"], [class~="from-purple-500"], [class~="from-[#751f8c]"]) {
+  --color-white: #ffffff;
+  background-image: linear-gradient(100deg, #5b21b6 0%, #7c3aed 52%, #c026d3 100%);
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0 12px 24px -10px rgba(91, 33, 182, 0.8);
+}
+
+html:root[data-theme="light"] :is(button, a):is([class~="from-purple-600"], [class~="from-purple-500"], [class~="from-[#751f8c]"]):hover {
+  background-image: linear-gradient(100deg, #4c1d95 0%, #6d28d9 52%, #a21caf 100%);
+  box-shadow: 0 16px 30px -10px rgba(91, 33, 182, 0.9);
+}
+
+/* The hero button's hover overlay would otherwise repaint the old colours. */
+html:root[data-theme="light"] button > .absolute.inset-0[class~="from-purple-500"] {
+  display: none;
+}
+
+/* Secondary buttons: white with a clear purple outline, filling on hover */
+html:root[data-theme="light"] button.border[class*="border-purple-400/"] {
+  --color-white: #4c1d95;
+  background-color: #ffffff;
+  border: 1.5px solid #7c3aed;
+  color: #4c1d95;
+  font-weight: 700;
+  box-shadow: 0 8px 18px -12px rgba(91, 33, 182, 0.6);
+}
+
+html:root[data-theme="light"] button.border[class*="border-purple-400/"]:hover {
+  --color-white: #ffffff;
+  background-color: #6d28d9;
+  border-color: #6d28d9;
+  color: #ffffff;
+}
+
+/* Typing chip in the hero */
+html:root[data-theme="light"] .rounded-md.border[class*="bg-purple-600/"] {
+  background-color: #ffffff;
+  border-color: rgba(124, 58, 237, 0.45);
+  --color-purple-200: #5b21b6;
+  backdrop-filter: none;
+}
+
+html:root[data-theme="light"] .rounded-md.border[class*="bg-purple-600/"] .font-mono {
+  font-weight: 600;
+}
+
+/* Small supporting lines stay crisp rather than grey and thin */
+html:root[data-theme="light"] :is(p, li, div).text-xs.text-gray-400 {
+  font-weight: 500;
+}
+
+html:root[data-theme="light"] h1 .text-white,
+html:root[data-theme="light"] :is(h1, h2, h3).text-white {
+  letter-spacing: -0.015em;
+}
+
+/* Inside the footer the text scale stays light */
+html:root[data-theme="light"] footer.bg-black\/95 {
+  --color-gray-300: #dcd5ec;
+  --color-gray-400: #cbc3df;
+  --color-gray-500: #b3a9cc;
+}
+
 :root {
   --surface-splash: #07040f;
 }
