@@ -210,10 +210,19 @@ export default async function ProcessPage() {
               <p className="mt-6 text-center text-xs text-gray-500">
                 Smaller projects pay {terms.smallSplit.toLowerCase()}. Hosting for the first year is included.
               </p>
-              <div className="mt-6 text-center">
-                <Link href="/project-terms" className="text-sm font-semibold text-purple-300 hover:text-purple-200">
-                  Read the full terms, hosting and renewal details →
+              <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Link
+                  href="/project-terms"
+                  className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 transition hover:brightness-110"
+                >
+                  Read full terms, hosting &amp; renewal →
                 </Link>
+                <a
+                  href="/project-terms/pdf?v=2"
+                  className="inline-flex items-center gap-2 rounded-full border border-purple-400/50 px-7 py-3 text-sm font-semibold text-white transition hover:bg-purple-600/10"
+                >
+                  Download PDF
+                </a>
               </div>
             </div>
 
