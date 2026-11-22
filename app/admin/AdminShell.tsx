@@ -74,7 +74,7 @@ const NAV: NavItem[] = [
   { href: "/admin", label: "Dashboard", icon: FiGrid, exact: true, primary: true },
   { href: "/admin/enquiries", label: "Enquiries", icon: FiInbox, badge: "unread", primary: true },
   { href: "/admin/projects", label: "Projects", icon: FiFolder, badge: "drafts", primary: true },
-  { href: "/admin/products", label: "Products", icon: FiBox },
+  { href: "/admin/products", label: "Collaborations", icon: FiBox },
   { href: "/admin/documents", label: "Documents", icon: FiFile, primary: true },
   { href: "/admin/insights", label: "Insights", icon: FiBarChart2 },
   { href: "/admin/testimonials", label: "Testimonials", icon: FiMessageSquare },

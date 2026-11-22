@@ -17,28 +17,28 @@ import ProductVisual, { ProductLogo, brandGradient } from "./ProductVisual";
 export const revalidate = 60;
 
 export const metadata: Metadata = pageMeta({
-  title: "Our Products — Software Built by Unique Web Layer",
+  title: "Collaborations — Projects Built Together | Unique Web Layer",
   description:
-    "Products designed, built and run by Unique Web Layer, including myGallaBook GST billing software and the Apnajoda dating app.",
-  path: "/products",
-  keywords: ["Unique Web Layer products", "myGallaBook", "Apnajoda"],
+    "Projects Unique Web Layer has built in collaboration, including myGallaBook GST billing software and the Apnajoda dating app.",
+  path: "/collaborations",
+  keywords: ["Unique Web Layer collaborations", "myGallaBook", "Apnajoda"],
 });
 
 const WHY = [
   {
     icon: FiLayers,
-    title: "Built end to end",
-    text: "Design, code, hosting and launch are all handled by our own team.",
+    title: "Built together",
+    text: "Every project combines the skills of the people building it, from idea to launch.",
   },
   {
     icon: FiRefreshCw,
     title: "Improved after launch",
-    text: "We keep running these products, so we keep fixing and improving them.",
+    text: "These projects are live, so the work continues with fixes and new features.",
   },
   {
     icon: FiUsers,
     title: "Experience you can use",
-    text: "What we learn running real products goes into the work we do for clients.",
+    text: "What we learn on live projects goes into the work we do for clients.",
   },
 ];
 
@@ -77,22 +77,22 @@ function Showcase({ product, flip }: { product: Product; flip: boolean }) {
         </ul>
 
         <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-          <Link
-            href={`/products/${product.slug}`}
-            className="inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-6 py-3 text-sm font-semibold text-white"
-          >
-            See full details <FiArrowRight />
-          </Link>
           {product.websiteUrl && (
             <a
               href={product.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-purple-500/50 px-6 py-3 text-sm font-semibold text-white transition hover:bg-purple-600/10"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-6 py-3 text-sm font-semibold text-white"
             >
-              {product.ctaLabel} <FiExternalLink />
+              Visit website <FiExternalLink />
             </a>
           )}
+          <Link
+            href={`/collaborations/${product.slug}`}
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-purple-500/50 px-6 py-3 text-sm font-semibold text-white transition hover:bg-purple-600/10"
+          >
+            See full details <FiArrowRight />
+          </Link>
         </div>
       </div>
 
@@ -120,23 +120,23 @@ export default async function ProductsPage() {
         <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <header className="mx-auto mb-16 max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-purple-500/30 bg-purple-600/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-purple-200">
-              Our Products
+              Collaborations
             </span>
             <h1 className="mt-5 text-4xl font-bold leading-tight text-white md:text-5xl">
-              We don&apos;t just build for clients.{" "}
+              Great projects are{" "}
               <span className="bg-linear-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                We run our own products.
+                built together.
               </span>
             </h1>
             <p className="mt-5 leading-relaxed text-gray-400">
-              Software designed, built and operated by the team behind Unique
-              Web Layer, used by real people every day.
+              Live projects Unique Web Layer has built in collaboration. Explore
+              each one and visit it yourself.
             </p>
           </header>
 
           {products.length === 0 ? (
             <p className="py-16 text-center text-gray-400">
-              Our products will appear here soon.
+              Our collaborations will appear here soon.
             </p>
           ) : (
             <div className="space-y-24">
@@ -148,7 +148,7 @@ export default async function ProductsPage() {
 
           <div className="mt-24">
             <h2 className="text-center text-2xl font-bold text-white md:text-3xl">
-              Why we build our own products
+              Why we collaborate
             </h2>
             <div className="mt-10 grid gap-5 md:grid-cols-3">
               {WHY.map((w) => (
@@ -168,17 +168,17 @@ export default async function ProductsPage() {
 
           <div className="uwl-onbrand mt-20 rounded-3xl bg-linear-to-r from-purple-600 to-pink-600 p-8 text-center md:p-12">
             <h2 className="text-2xl font-bold text-white md:text-3xl">
-              Have a product idea of your own?
+              Want to build something together?
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-white/90">
-              The team that built these can design, build and launch yours.
+              Tell us your idea and let&apos;s see how we can work on it together.
             </p>
             <Link
               href="/contact"
               className="mt-6 inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-bold"
               style={{ background: "#ffffff", color: "#4c1d95" }}
             >
-              Talk to us <FiArrowRight />
+              Start a collaboration <FiArrowRight />
             </Link>
           </div>
         </div>

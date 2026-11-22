@@ -25,7 +25,7 @@ export default function AdminProducts() {
     try {
       setItems(await fetchProducts(token, true));
     } catch (err) {
-      setError(err instanceof ApiRequestError ? err.message : "Could not load products.");
+      setError(err instanceof ApiRequestError ? err.message : "Could not load projects.");
     } finally {
       setLoading(false);
     }
@@ -43,7 +43,7 @@ export default function AdminProducts() {
       setItems((prev) => prev.filter((x) => x.id !== p.id));
       setNotice(`${p.name} deleted.`);
     } catch (err) {
-      setError(err instanceof ApiRequestError ? err.message : "Could not delete that product.");
+      setError(err instanceof ApiRequestError ? err.message : "Could not delete that project.");
     }
   };
 
@@ -62,7 +62,7 @@ export default function AdminProducts() {
     <div>
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">Products</h1>
+          <h1 className="text-2xl font-semibold tracking-tight text-white md:text-3xl">Collaborations</h1>
           <p className="mt-2 text-sm text-gray-400">
             {items.length} saved · {items.filter((p) => p.isPublished).length} showing on the site
           </p>
@@ -74,7 +74,7 @@ export default function AdminProducts() {
           }}
           className="rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-6 py-2.5 text-sm font-semibold text-white"
         >
-          + Add product
+          + Add project
         </button>
       </div>
 
@@ -93,7 +93,7 @@ export default function AdminProducts() {
         <p className="py-20 text-center text-gray-500">Loading…</p>
       ) : items.length === 0 ? (
         <p className="rounded-2xl border border-dashed border-purple-500/25 px-6 py-16 text-center text-gray-400">
-          No products yet. Add your first one.
+          No collaboration projects yet. Add your first one.
         </p>
       ) : (
         <ul className="space-y-3">
@@ -130,7 +130,7 @@ export default function AdminProducts() {
               <div className="flex shrink-0 items-center gap-2">
                 {p.isPublished && (
                   <a
-                    href={`/products/${p.slug}`}
+                    href={`/collaborations/${p.slug}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="rounded-full border border-white/15 px-3 py-1.5 text-xs text-gray-300 transition hover:bg-white/5"

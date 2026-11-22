@@ -42,15 +42,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const product = await findPublishedProduct(slug);
   if (!product) {
     return pageMeta({
-      title: "Product not found",
-      description: "This product is no longer available.",
-      path: `/products/${slug}`,
+      title: "Project not found",
+      description: "This project is no longer available.",
+      path: `/collaborations/${slug}`,
     });
   }
   return pageMeta({
     title: `${product.name} — ${product.category}`,
     description: product.summary.slice(0, 155),
-    path: `/products/${product.slug}`,
+    path: `/collaborations/${product.slug}`,
     keywords: [product.name, product.category],
     image: product.heroImage || product.logo || "/og/default.jpg",
   });
@@ -85,7 +85,7 @@ function Section({
 
 function Actions({ product }: { product: Product }) {
   const links = [
-    { href: product.websiteUrl, label: product.ctaLabel },
+    { href: product.websiteUrl, label: "Visit website" },
     { href: product.androidUrl, label: "Get it on Android" },
     { href: product.iosUrl, label: "Get it on iPhone" },
   ].filter((l) => l.href);
@@ -125,7 +125,7 @@ export default async function ProductPage({ params }: Props) {
     name: product.name,
     applicationCategory: product.category,
     description: product.summary,
-    url: product.websiteUrl || `${SITE_URL}/products/${product.slug}`,
+    url: product.websiteUrl || `${SITE_URL}/collaborations/${product.slug}`,
     ...(product.logo ? { image: `${SITE_URL}${product.logo}` } : {}),
   };
 
@@ -137,8 +137,8 @@ export default async function ProductPage({ params }: Props) {
         dangerouslySetInnerHTML={jsonLd(
           breadcrumbSchema([
             { name: "Home", path: "" },
-            { name: "Products", path: "/products" },
-            { name: product.name, path: `/products/${product.slug}` },
+            { name: "Collaborations", path: "/collaborations" },
+            { name: product.name, path: `/collaborations/${product.slug}` },
           ]),
         )}
       />
@@ -151,8 +151,8 @@ export default async function ProductPage({ params }: Props) {
         <Stars />
 
         <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <Link href="/products" className="inline-flex items-center gap-2 text-sm text-gray-400 transition hover:text-white">
-            <FiArrowLeft /> All products
+          <Link href="/collaborations" className="inline-flex items-center gap-2 text-sm text-gray-400 transition hover:text-white">
+            <FiArrowLeft /> All collaborations
           </Link>
 
           {/* Hero */}
@@ -300,7 +300,7 @@ export default async function ProductPage({ params }: Props) {
 
           <div className="uwl-onbrand mt-24 rounded-3xl p-8 text-center md:p-12" style={tile}>
             <h2 className="text-2xl font-bold text-white md:text-3xl">
-              Ready to try {product.name}?
+              See {product.name} live
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-white/90">{product.summary}</p>
             {product.websiteUrl && (
@@ -311,7 +311,7 @@ export default async function ProductPage({ params }: Props) {
                 className="mt-6 inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-bold"
                 style={{ background: "#ffffff", color: product.brandColor }}
               >
-                {product.ctaLabel} <FiArrowRight />
+                Visit website <FiArrowRight />
               </a>
             )}
           </div>

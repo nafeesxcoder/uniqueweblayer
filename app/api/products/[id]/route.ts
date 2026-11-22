@@ -26,8 +26,8 @@ export const PATCH = handler(async (request: Request, { params }: Ctx) => {
   const data = updateProductSchema.parse(await request.json()) as Partial<ProductInput>;
   const product = await updateProduct(existing.id, data);
 
-  revalidatePath("/products");
-  revalidatePath(`/products/${existing.slug}`);
+  revalidatePath("/collaborations");
+  revalidatePath(`/collaborations/${existing.slug}`);
   return NextResponse.json({ product });
 });
 
@@ -41,7 +41,7 @@ export const DELETE = handler(async (request: Request, { params }: Ctx) => {
 
   await deleteProduct(existing.id);
 
-  revalidatePath("/products");
-  revalidatePath(`/products/${existing.slug}`);
+  revalidatePath("/collaborations");
+  revalidatePath(`/collaborations/${existing.slug}`);
   return NextResponse.json({ success: true });
 });

@@ -26,6 +26,6 @@ export const POST = handler(async (request: Request) => {
   const data = productSchema.parse(await request.json()) as ProductInput;
   const product = await createProduct(data);
 
-  revalidatePath("/products");
+  revalidatePath("/collaborations");
   return NextResponse.json({ product }, { status: 201 });
 });

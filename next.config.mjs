@@ -49,6 +49,9 @@ const nextConfig = {
       // /work was renamed to /portfolio. 308 keeps the existing search ranking.
       { source: "/work", destination: "/portfolio", permanent: true },
       { source: "/work/:path*", destination: "/portfolio/:path*", permanent: true },
+      // /products was renamed to /collaborations.
+      { source: "/products", destination: "/collaborations", permanent: true },
+      { source: "/products/:path*", destination: "/collaborations/:path*", permanent: true },
     ];
   },
 };

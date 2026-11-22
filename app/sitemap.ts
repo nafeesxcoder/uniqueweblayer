@@ -18,7 +18,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: "", priority: 1.0, changeFrequency: "daily" as const },
     { path: "/services", priority: 0.9, changeFrequency: "weekly" as const },
     { path: "/portfolio", priority: 0.9, changeFrequency: "weekly" as const },
-    { path: "/products", priority: 0.9, changeFrequency: "weekly" as const },
+    { path: "/collaborations", priority: 0.9, changeFrequency: "weekly" as const },
     { path: "/about", priority: 0.8, changeFrequency: "monthly" as const },
     { path: "/contact", priority: 0.8, changeFrequency: "monthly" as const },
     { path: "/process", priority: 0.7, changeFrequency: "monthly" as const },
@@ -78,7 +78,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const products = await listProducts();
     productRoutes = products.map((p) => ({
-      url: `${SITE_URL}/products/${p.slug}`,
+      url: `${SITE_URL}/collaborations/${p.slug}`,
       lastModified: p.updatedAt ? new Date(p.updatedAt) : now,
       changeFrequency: "weekly" as const,
       priority: 0.8,

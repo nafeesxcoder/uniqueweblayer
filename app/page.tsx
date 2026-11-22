@@ -35,7 +35,7 @@ export default function Home() {
       {/* Selected work */}
       <ProjectsSection />
 
-      {/* Our own products */}
+      {/* Collaborations */}
       <ProductsHome />
 
       {/* How we deliver */}

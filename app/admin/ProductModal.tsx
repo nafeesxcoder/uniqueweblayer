@@ -235,19 +235,19 @@ export default function ProductModal({
 
   return (
     <ModalPortal>
-      <div className="uwl-scrim fixed inset-0 z-100 flex items-start justify-center overflow-y-auto overscroll-contain p-4 backdrop-blur-sm sm:p-8" onClick={onClose} role="dialog" aria-modal="true" aria-label={product ? "Edit product" : "Add a product"}>
+      <div className="uwl-scrim fixed inset-0 z-100 flex items-start justify-center overflow-y-auto overscroll-contain p-4 backdrop-blur-sm sm:p-8" onClick={onClose} role="dialog" aria-modal="true" aria-label={product ? "Edit project" : "Add a collaboration project"}>
         <div className="uwl-modal w-full max-w-3xl rounded-2xl border p-6 shadow-2xl sm:p-8" onClick={(e) => e.stopPropagation()}>
           <div className="mb-6 flex items-start justify-between gap-4">
             <div>
-              <h2 className="text-xl font-bold text-white">{product ? `Edit ${product.name}` : "Add a product"}</h2>
-              <p className="mt-1 text-sm text-gray-400">This becomes a card on /products and its own detail page.</p>
+              <h2 className="text-xl font-bold text-white">{product ? `Edit ${product.name}` : "Add a collaboration project"}</h2>
+              <p className="mt-1 text-sm text-gray-400">This appears on the Collaborations page with its own detail page.</p>
             </div>
             <button type="button" onClick={onClose} aria-label="Close" className="rounded-lg p-1 text-gray-500 hover:text-white">✕</button>
           </div>
 
           <form onSubmit={submit} className="space-y-5">
             <div className="grid gap-4 sm:grid-cols-2">
-              {text("name", "Product name", true)}
+              {text("name", "Project name", true)}
               {text("category", "Category", true, "e.g. Billing Software")}
             </div>
             {text("tagline", "Headline", true, "One strong line")}
@@ -284,7 +284,7 @@ export default function ProductModal({
             </div>
 
             <div className="grid gap-4 sm:grid-cols-3">
-              {text("websiteUrl", "Website link", false, "https://")}
+              {text("websiteUrl", "Website link (Visit button)", false, "https://")}
               {text("androidUrl", "Play Store link", false, "https://")}
               {text("iosUrl", "App Store link", false, "https://")}
             </div>
@@ -337,7 +337,7 @@ export default function ProductModal({
 
             <div className="flex gap-3 pt-2">
               <button type="submit" disabled={busy || uploading} className="flex-1 rounded-xl bg-linear-to-r from-purple-600 to-pink-600 px-5 py-3 text-sm font-semibold text-white disabled:opacity-60">
-                {busy ? "Saving…" : product ? "Save changes" : "Add product"}
+                {busy ? "Saving…" : product ? "Save changes" : "Add project"}
               </button>
               <button type="button" onClick={onClose} className="rounded-xl border border-white/15 px-5 py-3 text-sm text-gray-300 hover:bg-white/5">Cancel</button>
             </div>
