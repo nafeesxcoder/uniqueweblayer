@@ -2,6 +2,7 @@
 
 import type { ServiceTypeSlug } from "./serviceTypes";
 import type { Product } from "./productTypes";
+import type { TermsContent } from "../data/projectTerms";
 
 /**
  * Browser-side client for this app's own /api routes.
@@ -667,3 +668,33 @@ export async function submitContactForm(payload: {
     body: payload,
   });
 }
+
+/* ---------------------------------- terms -------------------------------- */
+
+export async function fetchTerms() {
+  const data = await apiRequest<{ terms: TermsContent }>("/api/terms", {
+    cache: "no-store",
+  });
+  return data.terms;
+}
+
+export async function saveTermsRequest(input: TermsContent, token: string) {
+  const data = await apiRequest<{ terms: TermsContent }>("/api/terms", {
+    method: "PUT",
+    body: input,
+    token,
+  });
+  return data.terms;
+}
+
+export async function uploadTermsSignature(file: File, token: string) {
+  const form = new FormData();
+  form.append("signature", file);
+  const data = await apiRequest<{ path: string }>("/api/terms/signature", {
+    method: "POST",
+    body: form,
+    token,
+  });
+  return data.path;
+}
+

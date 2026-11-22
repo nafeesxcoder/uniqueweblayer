@@ -293,3 +293,48 @@ export const servicePricingSchema = z.object({
   ),
   delivery: trimmed(80).pipe(z.string().min(1, "Enter a delivery time")),
 });
+
+/* -------------------------------- terms ---------------------------------- */
+
+const shortLine = trimmed(300);
+const termsPath = z
+  .string()
+  .trim()
+  .max(200)
+  .regex(/^(\/uploads\/[\w.-]+|\/brand\/[\w.-]+)?$/, "That signature path is not valid")
+  .optional()
+  .default("");
+
+export const termsSchema = z.object({
+  updated: shortLine.pipe(z.string().min(2, "Enter the date shown on the page")),
+  largeThreshold: shortLine,
+  stages: z
+    .array(
+      z.object({
+        percent: z.coerce.number().int().min(0).max(100),
+        label: trimmed(60),
+        gets: trimmed(300),
+      }),
+    )
+    .min(1)
+    .max(6),
+  smallSplit: shortLine,
+  hostingIncludedYears: z.coerce.number().int().min(0).max(10),
+  renewalINR: shortLine,
+  renewalUSD: shortLine,
+  supportDays: z.coerce.number().int().min(0).max(365),
+  sections: z
+    .array(
+      z.object({
+        title: trimmed(120).pipe(z.string().min(2, "Every section needs a title")),
+        points: z.array(trimmed(600)).max(40),
+      }),
+    )
+    .min(1)
+    .max(20),
+  notice: trimmed(600),
+  signedBy: trimmed(120).pipe(z.string().min(2, "Enter the name that signs")),
+  signedRole: trimmed(160),
+  signature: termsPath,
+});
+

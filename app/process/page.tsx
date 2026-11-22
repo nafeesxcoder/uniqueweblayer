@@ -5,7 +5,7 @@ import { processSteps, engagementModels } from "../data/site";
 import { pageMeta, breadcrumbSchema, jsonLd } from "../lib/seo";
 import { SITE_URL } from "../data/site";
 import Icon from "../components/Icon";
-import { paymentStages, smallProjectSplit } from "../data/projectTerms";
+import { getTerms } from "../lib/server/terms";
 
 export const metadata = pageMeta({
   title: "Our Process — How We Design, Build and Launch",
@@ -68,7 +68,8 @@ const standards = [
   },
 ];
 
-export default function ProcessPage() {
+export default async function ProcessPage() {
+  const terms = await getTerms();
   return (
     <>
       <Script
@@ -199,7 +200,7 @@ export default function ProcessPage() {
                 Each payment is tied to something you can see. No work begins until the first payment arrives.
               </p>
               <ol className="mt-8 grid gap-5 md:grid-cols-3">
-                {paymentStages.map((stage) => (
+                {terms.stages.map((stage) => (
                   <li key={stage.label} className="rounded-2xl border border-white/10 bg-white/5 p-5">
                     <p className="text-2xl font-bold text-white">{stage.percent}% <span className="text-sm font-semibold text-purple-300">{stage.label}</span></p>
                     <p className="mt-2 text-sm leading-relaxed text-gray-400">{stage.gets}</p>
@@ -207,7 +208,7 @@ export default function ProcessPage() {
                 ))}
               </ol>
               <p className="mt-6 text-center text-xs text-gray-500">
-                Smaller projects pay {smallProjectSplit.toLowerCase()}. Hosting for the first year is included.
+                Smaller projects pay {terms.smallSplit.toLowerCase()}. Hosting for the first year is included.
               </p>
               <div className="mt-6 text-center">
                 <Link href="/project-terms" className="text-sm font-semibold text-purple-300 hover:text-purple-200">

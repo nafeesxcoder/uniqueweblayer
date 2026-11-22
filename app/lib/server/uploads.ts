@@ -148,3 +148,49 @@ export async function saveProjectImage(file: unknown): Promise<string | null> {
 
   return `/uploads/${filename}`;
 }
+
+/**
+ * A handwritten signature, stored as a transparent PNG. Ink on white paper is
+ * turned into ink with alpha, so the page behind it still shows through.
+ */
+export async function saveSignatureImage(file: unknown): Promise<string | null> {
+  if (!(file instanceof File) || file.size === 0) return null;
+
+  if (file.size > MAX_BYTES) {
+    throw new ApiError(400, "Signature image is too large — 5 MB maximum");
+  }
+  if (!["image/png", "image/jpeg", "image/webp"].includes(file.type)) {
+    throw new ApiError(400, "Upload the signature as PNG, JPG or WEBP");
+  }
+
+  const filename = `signature-${Date.now()}-${crypto.randomBytes(4).toString("hex")}.png`;
+  try {
+    const source = sharp(Buffer.from(await file.arrayBuffer())).ensureAlpha();
+    const meta = await sharp(Buffer.from(await file.arrayBuffer())).metadata();
+    const { data, info } = await source.raw().toBuffer({ resolveWithObject: true });
+    const out = Buffer.alloc(data.length);
+    const hasAlpha = Boolean(meta.hasAlpha);
+
+    for (let i = 0; i < data.length; i += 4) {
+      const lum = (data[i] + data[i + 1] + data[i + 2]) / 3;
+      const alpha = hasAlpha
+        ? data[i + 3]
+        : Math.max(0, Math.min(255, ((200 - lum) * 255) / 120));
+      out[i] = 26;
+      out[i + 1] = 18;
+      out[i + 2] = 51;
+      out[i + 3] = Math.round(alpha);
+    }
+
+    await sharp(out, { raw: { width: info.width, height: info.height, channels: 4 } })
+      .trim({ threshold: 1 })
+      .resize({ width: 600, height: 300, fit: "inside", withoutEnlargement: true })
+      .png()
+      .toFile(path.join(UPLOAD_DIR, filename));
+  } catch (error) {
+    throw new ApiError(400, `Could not process that signature: ${(error as Error).message}`);
+  }
+
+  return `/uploads/${filename}`;
+}
+

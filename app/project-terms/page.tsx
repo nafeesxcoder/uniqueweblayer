@@ -3,14 +3,7 @@ import type { Metadata } from "next";
 import { FiDownload } from "react-icons/fi";
 import { Stars } from "../components/Stars";
 import { pageMeta } from "../lib/seo";
-import {
-  LARGE_PROJECT_THRESHOLD,
-  TERMS_UPDATED,
-  paymentStages,
-  smallProjectSplit,
-  termsNotice,
-  termsSections,
-} from "../data/projectTerms";
+import { getTerms } from "../lib/server/terms";
 
 export const metadata: Metadata = pageMeta({
   title: "Project Terms, Payment and Hosting",
@@ -19,7 +12,10 @@ export const metadata: Metadata = pageMeta({
   path: "/project-terms",
 });
 
-export default function ProjectTermsPage() {
+export const revalidate = 60;
+
+export default async function ProjectTermsPage() {
+  const terms = await getTerms();
   return (
     <main className="min-h-screen bg-black">
       <section className="relative overflow-hidden py-20">
@@ -35,7 +31,7 @@ export default function ProjectTermsPage() {
               Payment, hosting and how we work
             </h1>
             <p className="mx-auto mt-4 max-w-2xl text-gray-400">
-              Last updated {TERMS_UPDATED}. {termsNotice}
+              Last updated {terms.updated}. {terms.notice}
             </p>
             <Link
               href="/project-terms/pdf"
@@ -48,10 +44,10 @@ export default function ProjectTermsPage() {
           <div className="mt-14 rounded-3xl border border-purple-500/25 bg-linear-to-br from-purple-900/25 to-black/40 p-7 md:p-10">
             <h2 className="text-xl font-bold text-white">Payment at each stage</h2>
             <p className="mt-2 text-sm text-gray-400">
-              For projects above {LARGE_PROJECT_THRESHOLD}. Smaller projects pay {smallProjectSplit.toLowerCase()}.
+              For projects above {terms.largeThreshold}. Smaller projects pay {terms.smallSplit.toLowerCase()}.
             </p>
             <ol className="mt-7 grid gap-5 md:grid-cols-3">
-              {paymentStages.map((stage) => (
+              {terms.stages.map((stage) => (
                 <li key={stage.label} className="rounded-2xl border border-white/10 bg-white/5 p-5">
                   <p className="text-3xl font-bold text-white">{stage.percent}%</p>
                   <p className="mt-1 text-sm font-semibold text-purple-300">{stage.label}</p>
@@ -62,7 +58,7 @@ export default function ProjectTermsPage() {
           </div>
 
           <div className="mt-10 space-y-6">
-            {termsSections.map((section) => (
+            {terms.sections.map((section) => (
               <section key={section.title} className="rounded-2xl border border-purple-500/20 bg-linear-to-br from-purple-900/20 to-black/40 p-6 md:p-8">
                 <h2 className="text-lg font-bold text-white">{section.title.replace(/^\d+\.\s*/, "")}</h2>
                 <ul className="mt-4 space-y-3">
