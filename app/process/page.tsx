@@ -5,6 +5,7 @@ import { processSteps, engagementModels } from "../data/site";
 import { pageMeta, breadcrumbSchema, jsonLd } from "../lib/seo";
 import { SITE_URL } from "../data/site";
 import Icon from "../components/Icon";
+import { paymentStages, smallProjectSplit } from "../data/projectTerms";
 
 export const metadata = pageMeta({
   title: "Our Process — How We Design, Build and Launch",
@@ -188,6 +189,30 @@ export default function ProcessPage() {
                     </p>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* Payment */}
+            <div className="mt-20 rounded-3xl border border-purple-500/25 bg-linear-to-br from-purple-900/25 to-black/40 p-8 md:p-12">
+              <h2 className="text-2xl md:text-3xl font-bold text-white text-center">How you pay</h2>
+              <p className="text-gray-400 mt-3 max-w-2xl mx-auto text-center text-sm md:text-base">
+                Each payment is tied to something you can see. No work begins until the first payment arrives.
+              </p>
+              <ol className="mt-8 grid gap-5 md:grid-cols-3">
+                {paymentStages.map((stage) => (
+                  <li key={stage.label} className="rounded-2xl border border-white/10 bg-white/5 p-5">
+                    <p className="text-2xl font-bold text-white">{stage.percent}% <span className="text-sm font-semibold text-purple-300">{stage.label}</span></p>
+                    <p className="mt-2 text-sm leading-relaxed text-gray-400">{stage.gets}</p>
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-6 text-center text-xs text-gray-500">
+                Smaller projects pay {smallProjectSplit.toLowerCase()}. Hosting for the first year is included.
+              </p>
+              <div className="mt-6 text-center">
+                <Link href="/project-terms" className="text-sm font-semibold text-purple-300 hover:text-purple-200">
+                  Read the full terms, hosting and renewal details →
+                </Link>
               </div>
             </div>
 

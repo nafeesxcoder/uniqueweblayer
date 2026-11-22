@@ -34,6 +34,7 @@ const footerLinks = {
     { name: "Technologies", href: "/technologies" },
     { name: "Countries We Serve", href: "/web-development-company" },
     { name: "FAQ", href: "/faq" },
+    { name: "Project Terms", href: "/project-terms" },
     { name: "Contact", href: "/contact" },
   ],
 };
