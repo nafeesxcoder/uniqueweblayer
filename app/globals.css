@@ -961,3 +961,53 @@ html[data-uwl-dismiss] #uwl-boot-splash {
     animation: none;
   }
 }
+
+/* ------------------------------------------------------------------
+   Motion: scroll reveal, floating shapes and a light sheen
+   ------------------------------------------------------------------ */
+.uwl-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.uwl-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes uwlFloat {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-14px, 18px); }
+}
+
+@keyframes uwlFloatSlow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(18px, -12px) scale(1.08); }
+}
+
+.uwl-float { animation: uwlFloat 9s ease-in-out infinite; }
+.uwl-float-slow { animation: uwlFloatSlow 12s ease-in-out infinite; }
+
+/* A soft band of light that crosses the panel every few seconds. */
+.uwl-panel-motion::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.22) 50%, transparent 60%);
+  transform: translateX(-100%);
+  animation: uwlSheen 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes uwlSheen {
+  0%, 60% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uwl-reveal { opacity: 1; transform: none; transition: none; }
+  .uwl-float, .uwl-float-slow, .uwl-panel-motion::after { animation: none; }
+}

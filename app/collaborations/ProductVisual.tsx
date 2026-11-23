@@ -1,19 +1,24 @@
 import type { Product } from "../lib/productTypes";
 
-/** Mixes a #rrggbb colour toward white, so the gradient works in every browser. */
-function lighten(hex: string, amount: number) {
+/** Mixes a #rrggbb colour toward black (negative amount) or white (positive). */
+function shade(hex: string, amount: number) {
   const value = Number.parseInt(hex.slice(1), 16);
   const channel = (shift: number) => {
     const c = (value >> shift) & 255;
-    return Math.round(c + (255 - c) * amount)
+    const target = amount < 0 ? 0 : 255;
+    return Math.round(c + (target - c) * Math.abs(amount))
       .toString(16)
       .padStart(2, "0");
   };
   return `#${channel(16)}${channel(8)}${channel(0)}`;
 }
 
+/**
+ * A deep gradient, so white text stays readable on every brand colour,
+ * including light ones such as yellow or orange.
+ */
 export const brandGradient = (p: Pick<Product, "brandColor" | "accentColor">) =>
-  `linear-gradient(135deg, ${p.brandColor}, ${lighten(p.brandColor, 0.24)})`;
+  `linear-gradient(135deg, ${shade(p.brandColor, -0.3)}, ${p.brandColor} 55%, ${shade(p.brandColor, -0.12)})`;
 
 /** The product's uploaded logo, or a clean initial until one is added. */
 export function ProductLogo({
@@ -74,19 +79,20 @@ export default function ProductVisual({ product }: { product: Product }) {
 
   return (
     <div
-      className="uwl-onbrand relative overflow-hidden rounded-3xl p-6 shadow-2xl sm:p-8"
+      className="uwl-onbrand uwl-panel-motion relative overflow-hidden rounded-3xl p-6 shadow-2xl sm:p-8"
       style={{ background: brandGradient(product) }}
     >
-      <div className="absolute -right-16 -top-16 h-56 w-56 rounded-full" style={{ background: "rgba(255,255,255,0.12)" }} />
+      <div className="uwl-float pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full" style={{ background: "rgba(255,255,255,0.14)" }} />
+      <div className="uwl-float-slow pointer-events-none absolute -bottom-20 -left-12 h-44 w-44 rounded-full" style={{ background: "rgba(255,255,255,0.08)" }} />
       <div className="relative">
         <div className="flex items-center gap-3">
           <ProductLogo product={product} size={52} />
           <div>
-            <p className="text-xl font-bold text-white">{product.name}</p>
+            <p className="text-xl font-bold text-white drop-shadow">{product.name}</p>
             <p className="text-xs text-white/80">{product.category}</p>
           </div>
         </div>
-        <p className="mt-6 text-2xl font-bold leading-tight text-white sm:text-3xl">
+        <p className="mt-6 text-2xl font-bold leading-tight text-white drop-shadow sm:text-3xl">
           {product.tagline}
         </p>
         <div className="mt-6 grid grid-cols-2 gap-3">
@@ -94,10 +100,10 @@ export default function ProductVisual({ product }: { product: Product }) {
             <div
               key={h.label}
               className="rounded-xl p-3"
-              style={{ background: "rgba(255,255,255,0.16)" }}
+              style={{ background: "rgba(0,0,0,0.22)" }}
             >
-              <p className="text-lg font-bold text-white">{h.value}</p>
-              <p className="text-[11px] leading-snug text-white/85">{h.label}</p>
+              <p className="text-xl font-bold text-white">{h.value}</p>
+              <p className="text-xs font-medium leading-snug text-white">{h.label}</p>
             </div>
           ))}
         </div>

@@ -13,6 +13,7 @@ import { pageMeta } from "../lib/seo";
 import { listProducts } from "../lib/server/products";
 import { PRODUCT_STATUS_LABEL, type Product } from "../lib/productTypes";
 import ProductVisual, { ProductLogo, brandGradient } from "./ProductVisual";
+import Reveal from "../components/Reveal";
 
 export const revalidate = 60;
 
@@ -141,7 +142,9 @@ export default async function ProductsPage() {
           ) : (
             <div className="space-y-24">
               {products.map((product, i) => (
-                <Showcase key={product.id} product={product} flip={i % 2 === 1} />
+                <Reveal key={product.id} delay={Math.min(i, 3) * 80}>
+                  <Showcase product={product} flip={i % 2 === 1} />
+                </Reveal>
               ))}
             </div>
           )}
