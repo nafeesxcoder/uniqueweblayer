@@ -66,6 +66,7 @@ export default function ServicesSection() {
 
   const [isVisible, setIsVisible] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [paused, setPaused] = useState(false);
   const sectionRef = useRef(null);
 
   // Services with correct prices from your data
@@ -469,31 +470,35 @@ export default function ServicesSection() {
   }, []);
 
   useEffect(() => {
+    if (paused) return;
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % services.length);
     }, 8000);
     return () => clearInterval(timer);
-  }, [services.length]);
+  }, [services.length, paused]);
 
   const currentService = services[currentSlide];
 
+  const accent = currentService.color || "#8b5cf6";
+  const livePrice = priceFor(currentService.slug);
+  const CurrentIcon = currentService.icon;
+
   return (
-    <section ref={sectionRef} className="relative py-20 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-linear-to-b from-black via-purple-950/10 to-black" />
+    <section ref={sectionRef} className="relative py-24 overflow-hidden">
+      <div className="absolute inset-0 bg-black" />
       <Stars />
 
-      {/* Animated Background Orbs */}
-      <div className="absolute top-1/4 left-0 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
+      <div
+        className="absolute -top-24 left-1/4 w-[520px] h-[520px] rounded-full blur-3xl opacity-25 transition-colors duration-700"
+        style={{ background: accent }}
+      />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isVisible ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-14"
         >
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-linear-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 backdrop-blur-sm mb-4">
             <FaRocket className="w-3 h-3 text-purple-400" />
@@ -501,7 +506,6 @@ export default function ServicesSection() {
               Our Services
             </span>
           </div>
-
           <h2 className="text-4xl md:text-5xl font-bold">
             <span className="bg-linear-to-r from-white via-purple-300 to-white bg-clip-text text-transparent">
               Everything You Need
@@ -511,307 +515,206 @@ export default function ServicesSection() {
               Under One Roof
             </span>
           </h2>
-
           <p className="text-gray-400 text-base mt-4 max-w-2xl mx-auto">
             From simple landing pages to complex web applications — we build it
             all
           </p>
         </motion.div>
 
-        {/* Premium Slider */}
-        <div className="relative group">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentSlide}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.5 }}
-              className="relative bg-linear-to-br from-gray-900/80 to-black/80 backdrop-blur-xl rounded-3xl border border-white/10 overflow-hidden shadow-2xl"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-2">
-                {/* Left Side - Image (Clickable) */}
-                <Link href={`/services/${currentService.slug}`}>
-                  <div className="relative h-[350px] lg:h-[500px] overflow-hidden group/image cursor-pointer">
-                    <div className="absolute inset-0 bg-linear-to-r from-black via-transparent to-transparent z-10 lg:bg-linear-to-r" />
-
-                    <motion.div
-                      whileHover={{ scale: 1.08 }}
-                      transition={{ duration: 0.6 }}
-                      className="w-full h-full"
-                    >
-                      {currentService.image ? (
-                        <Image
-                          src={currentService.image}
-                          alt={`${currentService.title} by Unique Web Layer`}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 50vw"
-                          className="object-cover"
-                          priority
-                        />
-                      ) : (
-                        <div
-                          className={`w-full h-full bg-linear-to-br ${currentService.gradient} flex items-center justify-center`}
-                        >
-                          <div className="text-center">
-                            {currentService.icon && (
-                              <currentService.icon className="text-7xl text-white/90 mx-auto" />
-                            )}
-                            <div className="mt-4 text-white/80 text-sm font-medium tracking-wide">
-                              {currentService.category}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </motion.div>
-
-                    {/* Overlay on Hover */}
-                    <div className="absolute inset-0 bg-purple-600/30 opacity-0 group-hover/image:opacity-100 transition-opacity duration-300 z-20 flex items-center justify-center">
-                      <div className="bg-black/70 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2">
-                        <FiInfo className="text-white" />
-                        <span className="text-white text-sm font-medium">
-                          View Details
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Corner Decor */}
-                    <div className="absolute top-4 left-4 z-30">
-                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-purple-500/30">
-                        <FaCrown className="w-3 h-3 text-yellow-500" />
-                        <span className="text-xs font-medium text-white">
-                          {currentService.category}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Floating Icon */}
-                    <motion.div
-                      animate={{ y: [0, -8, 0] }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                      className="absolute bottom-6 right-6 z-30"
-                    >
-                      <div
-                        className={`w-16 h-16 rounded-2xl bg-linear-to-br ${currentService.gradient} flex items-center justify-center shadow-2xl backdrop-blur-sm`}
-                      >
-                        {currentService.icon && (
-                          <currentService.icon className="text-2xl text-white" />
-                        )}
-                      </div>
-                    </motion.div>
-                  </div>
-                </Link>
-
-                {/* Right Side - Information */}
-                <div className="p-6 lg:p-8">
-                  <Link href={`/services/${currentService.slug}`}>
-                    <h3 className="text-2xl lg:text-3xl font-bold mb-3 bg-linear-to-r from-white to-purple-300 bg-clip-text text-transparent hover:from-purple-300 hover:to-white transition-all duration-300 cursor-pointer">
-                      {currentService.title}
-                      <span className="text-sm text-purple-400 ml-2">↗</span>
-                    </h3>
-                  </Link>
-
-                  <p className="text-gray-300 text-sm lg:text-base mb-6 leading-relaxed">
-                    {currentService.description}
-                  </p>
-
-                  {/* Target Audience Card */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 }}
-                    className="relative mb-6 p-4 rounded-xl bg-linear-to-r from-purple-600/10 to-transparent border-l-4 border-purple-500"
+        <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+          {/* Service list: a swipeable row on phones, a column on desktop */}
+          <div className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-2 lg:mx-0 lg:flex-col lg:overflow-visible lg:px-0 lg:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {services.map((s, i) => {
+              const ItemIcon = s.icon;
+              const active = i === currentSlide;
+              return (
+                <button
+                  key={s.slug}
+                  type="button"
+                  onClick={() => setCurrentSlide(i)}
+                  aria-current={active}
+                  className={`group flex shrink-0 snap-start items-center gap-3 rounded-2xl border px-4 py-3 text-left transition-all duration-300 lg:w-full ${
+                    active
+                      ? "border-white/20 bg-white/10"
+                      : "border-white/5 bg-white/[0.03] hover:border-white/15 hover:bg-white/[0.06]"
+                  }`}
+                  style={active ? { boxShadow: `0 12px 30px -14px ${s.color}` } : undefined}
+                >
+                  <span
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
+                    style={{ background: s.color }}
                   >
-                    <div className="flex items-start gap-3">
-                      <FiTarget className="text-purple-400 mt-0.5" />
-                      <div>
-                        <span className="text-xs text-gray-400 uppercase tracking-wider">
-                          Target Audience
-                        </span>
-                        <p className="text-sm text-white font-medium mt-1">
-                          {currentService.targetAudience}
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
+                    {ItemIcon && <ItemIcon className="text-base text-white" />}
+                  </span>
+                  <span className="min-w-0">
+                    <span
+                      className={`block truncate text-sm font-semibold ${
+                        active ? "text-white" : "text-gray-300"
+                      }`}
+                    >
+                      {s.title}
+                    </span>
+                    <span className="block truncate text-[11px] text-gray-500">
+                      {s.category}
+                    </span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
 
-                  {/* Features Grid */}
-                  <div className="mb-6">
-                    <h4 className="text-sm font-semibold text-white mb-3 flex items-center gap-2">
-                      <FiStar className="text-purple-400" />
-                      Key Features
-                    </h4>
-                    <div className="grid grid-cols-2 gap-2">
-                      {currentService.features
-                        .slice(0, 4)
-                        .map((feature, idx) => (
-                          <motion.div
-                            key={idx}
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.2 + idx * 0.05 }}
-                            className="flex items-center gap-2 text-xs px-3 py-2 rounded-lg bg-white/5 border border-white/10 text-gray-300 hover:border-purple-500/30 transition-all duration-300"
-                          >
-                            <FiCheck className="text-purple-400 text-xs shrink-0" />
-                            <span>{feature}</span>
-                          </motion.div>
-                        ))}
-                    </div>
+          {/* Stage */}
+          <div
+            className="relative min-h-[540px] overflow-hidden rounded-3xl border border-white/10 bg-black/60 backdrop-blur-xl"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentSlide}
+                initial={{ opacity: 0, y: 24, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -24 }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                className="relative flex h-full flex-col p-6 md:p-10"
+              >
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: `radial-gradient(120% 90% at 100% 0%, ${accent}66, transparent 60%), radial-gradient(90% 80% at 0% 100%, ${accent}40, transparent 55%)`,
+                  }}
+                />
+                {CurrentIcon && (
+                  <CurrentIcon
+                    aria-hidden="true"
+                    className="pointer-events-none absolute -bottom-10 -right-8 text-[240px] text-white/[0.06]"
+                  />
+                )}
+
+                <div className="relative flex flex-wrap items-center gap-3">
+                  <span className="rounded-full border border-white/15 bg-black/50 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
+                    {currentService.category}
+                  </span>
+                  <span className="text-xs tabular-nums text-white/50">
+                    {String(currentSlide + 1).padStart(2, "0")} /{" "}
+                    {String(services.length).padStart(2, "0")}
+                  </span>
+                </div>
+
+                <h3 className="relative mt-6 text-3xl font-bold leading-tight text-white md:text-4xl">
+                  {currentService.title}
+                </h3>
+                <p className="relative mt-3 max-w-xl text-base leading-relaxed text-gray-200">
+                  {currentService.description}
+                </p>
+
+                <ul className="relative mt-6 flex flex-wrap gap-2">
+                  {currentService.features.slice(0, 6).map((feature) => (
+                    <li
+                      key={feature}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-medium text-white"
+                    >
+                      <FiCheck className="shrink-0" style={{ color: accent }} />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="relative mt-6 text-sm text-gray-300">
+                  <span className="mr-2 text-[11px] uppercase tracking-wider text-gray-400">
+                    Built for
+                  </span>
+                  <span className="font-medium text-white">
+                    {currentService.targetAudience}
+                  </span>
+                </p>
+
+                <div className="relative mt-auto grid max-w-md grid-cols-2 gap-3 pt-8">
+                  <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                    <p className="text-[11px] uppercase tracking-wider text-gray-400">
+                      Starting from
+                    </p>
+                    <p className="mt-1 text-xl font-bold text-white">
+                      {livePrice?.price ?? currentService.price}
+                    </p>
                   </div>
-
-                  {/* Price & Delivery */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="relative mb-6 p-4 rounded-xl bg-linear-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30"
-                  >
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center">
-                          <FiDollarSign className="text-white text-xl" />
-                        </div>
-                        <div>
-                          <span className="text-xs text-gray-300 uppercase tracking-wider">
-                            Starting from
-                          </span>
-                          <p className="text-xl font-bold text-white">
-                            {priceFor(currentService.slug)?.price ??
-                              currentService.price}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-xl bg-linear-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
-                          <FiClock className="text-white text-xl" />
-                        </div>
-                        <div className="text-right">
-                          <span className="text-xs text-gray-300 uppercase tracking-wider">
-                            Delivery
-                          </span>
-                          <p className="text-xl font-bold text-purple-400">
-                            {priceFor(currentService.slug)?.delivery ??
-                              currentService.delivery}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-
-                  {/* CTA Buttons */}
-                  <div className="flex gap-3">
-                    <Link href="/contact" className="flex-1">
-                      <button className="group w-full px-6 py-3 rounded-xl text-sm font-semibold bg-linear-to-r from-purple-600 to-pink-600 text-white hover:shadow-xl hover:shadow-purple-500/30 transition-all duration-300 flex items-center justify-center gap-2">
-                        <span>Get This Website</span>
-                        <FiArrowRight className="group-hover:translate-x-1 transition-transform" />
-                      </button>
-                    </Link>
-
-                    <Link href={`/services/${currentService.slug}`}>
-                      <button className="px-5 py-3 rounded-xl text-sm font-medium bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-purple-600/30 hover:border-purple-500/50 transition-all duration-300 flex items-center gap-2">
-                        <FiInfo className="text-sm" />
-                        <span className="hidden sm:inline">Learn More</span>
-                      </button>
-                    </Link>
+                  <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                    <p className="text-[11px] uppercase tracking-wider text-gray-400">
+                      Delivery
+                    </p>
+                    <p className="mt-1 text-xl font-bold" style={{ color: accent }}>
+                      {livePrice?.delivery ?? currentService.delivery}
+                    </p>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
 
-          {/* Slider Dots */}
-          <div className="flex justify-center gap-2 mt-6">
-            {services.map((_, idx) => (
+                <div className="relative mt-6 flex flex-wrap gap-3">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:brightness-110"
+                    style={{ background: `linear-gradient(120deg, ${accent}, #ec4899)` }}
+                  >
+                    Get This Website <FiArrowRight />
+                  </Link>
+                  <Link
+                    href={`/services/${currentService.slug}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/25 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/10"
+                  >
+                    <FiInfo /> Learn More
+                  </Link>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="absolute bottom-0 left-0 h-1 w-full bg-white/5">
+              <motion.div
+                key={`${currentSlide}-${paused}`}
+                className="h-full"
+                style={{ background: accent }}
+                initial={{ width: "0%" }}
+                animate={{ width: paused ? undefined : "100%" }}
+                transition={{ duration: 8, ease: "linear" }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 flex items-center justify-center gap-4">
+          <button
+            type="button"
+            aria-label="Previous service"
+            onClick={() => setCurrentSlide((p) => (p - 1 + services.length) % services.length)}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition hover:border-white/40 hover:bg-white/10"
+          >
+            <FiArrowRight className="rotate-180" />
+          </button>
+          <div className="flex gap-2">
+            {services.map((s, idx) => (
               <button
-                key={idx}
+                key={s.slug}
+                type="button"
+                aria-label={`Show ${s.title}`}
                 onClick={() => setCurrentSlide(idx)}
-                className={`transition-all duration-300 rounded-full ${
-                  currentSlide === idx
-                    ? "w-8 h-2 bg-linear-to-r from-purple-500 to-pink-500"
-                    : "w-2 h-2 bg-white/30 hover:bg-white/50"
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  currentSlide === idx ? "w-8" : "w-2 bg-white/30 hover:bg-white/50"
                 }`}
+                style={currentSlide === idx ? { background: s.color } : undefined}
               />
             ))}
           </div>
-
-          {/* Navigation Arrows */}
           <button
-            onClick={() =>
-              setCurrentSlide(
-                (prev) => (prev - 1 + services.length) % services.length,
-              )
-            }
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white hover:bg-purple-600/80 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100"
+            type="button"
+            aria-label="Next service"
+            onClick={() => setCurrentSlide((p) => (p + 1) % services.length)}
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 text-white transition hover:border-white/40 hover:bg-white/10"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
-          <button
-            onClick={() =>
-              setCurrentSlide((prev) => (prev + 1) % services.length)
-            }
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 backdrop-blur-md border border-white/20 text-white hover:bg-purple-600/80 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100"
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
+            <FiArrowRight />
           </button>
         </div>
 
-        {/* Quick Navigation Pills */}
-        <div className="flex flex-wrap justify-center gap-2 mt-8">
-          {services.slice(0, 6).map((service, idx) => (
-            <button
-              key={service.id}
-              onClick={() => setCurrentSlide(idx)}
-              className={`px-4 py-2 rounded-full text-xs font-medium transition-all duration-300 flex items-center gap-2 ${
-                currentSlide === idx
-                  ? `bg-linear-to-r ${service.gradient} text-white shadow-lg`
-                  : "bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10"
-              }`}
-            >
-              {service.icon && <service.icon className="text-xs" />}
-              {service.title.split(" ")[0]}
-            </button>
-          ))}
-          <Link href="/services">
-            <button className="px-4 py-2 rounded-full text-xs font-medium bg-purple-600/20 border border-purple-500/30 text-purple-300 hover:bg-purple-600/40 transition-all duration-300 flex items-center gap-2">
-              <svg
-                className="w-3 h-3"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-              View All ({services.length})
-            </button>
+        <div className="mt-10 text-center">
+          <Link href="/services" className="text-sm font-semibold text-purple-300 hover:text-purple-200">
+            View all {services.length} services →
           </Link>
         </div>
       </div>
