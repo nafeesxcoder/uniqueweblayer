@@ -482,6 +482,8 @@ export default function ServicesSection() {
   const accent = currentService.color || "#8b5cf6";
   const livePrice = priceFor(currentService.slug);
   const CurrentIcon = currentService.icon;
+  const prevService = services[(currentSlide - 1 + services.length) % services.length];
+  const nextService = services[(currentSlide + 1) % services.length];
 
   return (
     <section ref={sectionRef} className="relative py-24 overflow-hidden">
@@ -523,7 +525,7 @@ export default function ServicesSection() {
 
         <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
           {/* Service list: a swipeable row on phones, a column on desktop */}
-          <div className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-2 lg:mx-0 lg:flex-col lg:overflow-visible lg:px-0 lg:pb-0 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-2 lg:mx-0 lg:max-h-[400px] lg:flex-col lg:overflow-y-auto lg:overflow-x-visible lg:px-0 lg:pb-0 lg:pr-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {services.map((s, i) => {
               const ItemIcon = s.icon;
               const active = i === currentSlide;
@@ -563,12 +565,23 @@ export default function ServicesSection() {
             })}
           </div>
 
-          {/* Stage */}
+          {/* Stage: the active card, with the neighbours peeking out behind it */}
           <div
-            className="relative min-h-[540px] overflow-hidden rounded-3xl border border-white/10 bg-black/60 backdrop-blur-xl"
+            className="relative pb-5"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
           >
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-8 bottom-0 top-3 rounded-3xl border border-white/10 opacity-50"
+              style={{ background: nextService.color, transform: "rotate(2deg)" }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-x-5 bottom-0 top-2 rounded-3xl border border-white/10 opacity-70"
+              style={{ background: prevService.color, transform: "rotate(-1.5deg)" }}
+            />
+          <div className="relative z-10 min-h-[400px] overflow-hidden rounded-3xl border border-white/10 bg-black/70 backdrop-blur-xl">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentSlide}
@@ -576,7 +589,7 @@ export default function ServicesSection() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -24 }}
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                className="relative flex h-full flex-col p-6 md:p-10"
+                className="relative flex h-full flex-col p-6 md:p-8"
               >
                 <div
                   className="absolute inset-0"
@@ -587,7 +600,7 @@ export default function ServicesSection() {
                 {CurrentIcon && (
                   <CurrentIcon
                     aria-hidden="true"
-                    className="pointer-events-none absolute -bottom-10 -right-8 text-[240px] text-white/[0.06]"
+                    className="pointer-events-none absolute -bottom-8 -right-6 text-[180px] text-white/[0.06]"
                   />
                 )}
 
@@ -601,15 +614,15 @@ export default function ServicesSection() {
                   </span>
                 </div>
 
-                <h3 className="relative mt-6 text-3xl font-bold leading-tight text-white md:text-4xl">
+                <h3 className="relative mt-4 text-2xl font-bold leading-tight text-white md:text-3xl">
                   {currentService.title}
                 </h3>
-                <p className="relative mt-3 max-w-xl text-base leading-relaxed text-gray-200">
+                <p className="relative mt-2 max-w-xl text-sm leading-relaxed text-gray-200 md:text-base">
                   {currentService.description}
                 </p>
 
-                <ul className="relative mt-6 flex flex-wrap gap-2">
-                  {currentService.features.slice(0, 6).map((feature) => (
+                <ul className="relative mt-4 flex flex-wrap gap-2">
+                  {currentService.features.slice(0, 4).map((feature) => (
                     <li
                       key={feature}
                       className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs font-medium text-white"
@@ -620,7 +633,7 @@ export default function ServicesSection() {
                   ))}
                 </ul>
 
-                <p className="relative mt-6 text-sm text-gray-300">
+                <p className="relative mt-4 text-sm text-gray-300">
                   <span className="mr-2 text-[11px] uppercase tracking-wider text-gray-400">
                     Built for
                   </span>
@@ -629,8 +642,8 @@ export default function ServicesSection() {
                   </span>
                 </p>
 
-                <div className="relative mt-auto grid max-w-md grid-cols-2 gap-3 pt-8">
-                  <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                <div className="relative mt-auto grid max-w-md grid-cols-2 gap-3 pt-6">
+                  <div className="rounded-xl border border-white/10 bg-black/40 p-3">
                     <p className="text-[11px] uppercase tracking-wider text-gray-400">
                       Starting from
                     </p>
@@ -638,7 +651,7 @@ export default function ServicesSection() {
                       {livePrice?.price ?? currentService.price}
                     </p>
                   </div>
-                  <div className="rounded-2xl border border-white/10 bg-black/40 p-4">
+                  <div className="rounded-xl border border-white/10 bg-black/40 p-3">
                     <p className="text-[11px] uppercase tracking-wider text-gray-400">
                       Delivery
                     </p>
@@ -648,7 +661,7 @@ export default function ServicesSection() {
                   </div>
                 </div>
 
-                <div className="relative mt-6 flex flex-wrap gap-3">
+                <div className="relative mt-5 flex flex-wrap gap-3">
                   <Link
                     href="/contact"
                     className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:brightness-110"
@@ -676,6 +689,7 @@ export default function ServicesSection() {
                 transition={{ duration: 8, ease: "linear" }}
               />
             </div>
+          </div>
           </div>
         </div>
 
