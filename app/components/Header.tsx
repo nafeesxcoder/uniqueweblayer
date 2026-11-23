@@ -52,10 +52,10 @@ export default function Header() {
     }
   }, [isMenuOpen]);
 
-  const navItems = [
+  const navItems: { name: string; path: string; short?: string }[] = [
     { name: "Home", path: "/" },
     { name: "Portfolio", path: "/portfolio" },
-    { name: "Collab", path: "/collaborations" },
+    { name: "Collaborations", short: "Collab", path: "/collaborations" },
     { name: "Industries", path: "/industries" },
     { name: "Process", path: "/process" },
     { name: "About", path: "/about" },
@@ -91,7 +91,7 @@ export default function Header() {
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-6">
               {navItems.map((item) => (
                 <Link
                   key={item.path}
@@ -102,7 +102,14 @@ export default function Header() {
                       : "text-gray-300 hover:text-[#b665f2]"
                   }`}
                 >
-                  {item.name}
+                  {item.short ? (
+                    <>
+                      <span className="xl:hidden">{item.short}</span>
+                      <span className="hidden xl:inline">{item.name}</span>
+                    </>
+                  ) : (
+                    item.name
+                  )}
                   {pathname === item.path && (
                     <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-linear-to-r from-[#751f8c] to-[#b665f2] rounded-full"></span>
                   )}
@@ -184,10 +191,10 @@ export default function Header() {
 
           {/* RIGHT SIDE - Only Hire Me Button */}
           <div className="flex items-center gap-3">
-            <ThemeToggle className="hidden md:flex" />
+            <ThemeToggle className="hidden lg:flex" />
 
-            <Link href="/contact" className="hidden md:block">
-              <button className="group relative px-5 py-2 bg-linear-to-r from-[#751f8c] to-[#b665f2] rounded-full text-white text-sm font-semibold overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50">
+            <Link href="/contact" className="hidden lg:block">
+              <button className="group relative px-5 py-2 bg-linear-to-r from-[#751f8c] to-[#b665f2] rounded-full text-white text-sm font-semibold whitespace-nowrap overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-purple-500/50">
                 <span className="relative z-10 flex items-center gap-2">
                   <FaRocket className="text-xs" />
                   Get a Quote
@@ -200,7 +207,7 @@ export default function Header() {
           {/* MOBILE MENU BUTTON */}
           <button
             onClick={() => setIsMenuOpen(true)}
-            className="md:hidden relative w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center z-50"
+            className="lg:hidden relative w-10 h-10 rounded-lg bg-white/10 backdrop-blur-sm flex items-center justify-center z-50"
           >
             <div className="relative w-5 h-5">
               <span className="absolute h-0.5 bg-white rounded-full top-1 w-5"></span>
@@ -336,7 +343,7 @@ export default function Header() {
 
       {isMenuOpen && (
         <div
-          className="fixed inset-0 uwl-scrim z-[199] md:hidden"
+          className="fixed inset-0 uwl-scrim z-[199] lg:hidden"
           onClick={() => setIsMenuOpen(false)}
         />
       )}

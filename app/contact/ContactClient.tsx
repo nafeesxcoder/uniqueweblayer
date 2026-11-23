@@ -291,6 +291,19 @@ export default function ContactClient({
                 </a>
 
                 <a
+                  href="/project-terms"
+                  className="group flex items-start gap-3 text-sm text-gray-300 transition-colors hover:text-purple-300"
+                >
+                  <FiFileText className="mt-0.5 h-4 w-4 shrink-0 text-purple-400" />
+                  <span>
+                    <span className="block text-[11px] uppercase tracking-wide text-gray-500">
+                      Payment &amp; hosting
+                    </span>
+                    How projects are paid for, hosted and renewed
+                  </span>
+                </a>
+
+                <a
                   href={`tel:${company.phone}`}
                   className="group flex items-start gap-3 text-sm text-gray-300 transition-colors hover:text-purple-300"
                 >
