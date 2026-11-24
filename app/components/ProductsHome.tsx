@@ -15,7 +15,7 @@ export default function ProductsHome() {
     let cancelled = false;
     fetchProducts()
       .then((list) => {
-        if (!cancelled) setProducts(list.slice(0, 3));
+        if (!cancelled) setProducts(list.slice(0, 4));
       })
       .catch(() => {
         /* The section simply stays hidden. */
