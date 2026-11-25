@@ -15,14 +15,18 @@ export default function BrandLogo({
     <>
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/logo.png"
+        src="/logo.webp"
         alt="Unique Web Layer — web and mobile app development company"
+        width={886}
+        height={235}
         className={`uwl-logo-dark ${className}`}
       />
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/logo-light.png"
+        src="/logo-light.webp"
         alt="Unique Web Layer — web and mobile app development company"
+        width={886}
+        height={235}
         className={`uwl-logo-light ${className}`}
       />
     </>

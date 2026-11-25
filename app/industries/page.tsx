@@ -62,7 +62,7 @@ export default function IndustriesPage() {
                   key={ind.name}
                   className="group rounded-2xl border border-purple-500/20 bg-linear-to-br from-purple-900/20 to-black/40 backdrop-blur-sm p-6 hover:border-purple-500/60 hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                  <div className="w-12 h-12 rounded-xl bg-linear-to-br from-purple-600 to-pink-700 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                     <Icon name={ind.icon} className="text-white" />
                   </div>
                   <h2 className="text-lg font-bold text-white group-hover:text-purple-300 transition-colors">
@@ -86,7 +86,7 @@ export default function IndustriesPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center mt-7">
                 <Link href="/contact">
-                  <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
+                  <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-700 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
                     Get in Touch
                   </button>
                 </Link>

@@ -119,7 +119,7 @@ export default async function ProcessPage() {
               <div className="space-y-6">
                 {processSteps.map((s) => (
                   <div key={s.step} className="relative flex gap-5">
-                    <div className="shrink-0 w-14 h-14 rounded-2xl bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-lg shadow-purple-900/40 z-10">
+                    <div className="shrink-0 w-14 h-14 rounded-2xl bg-linear-to-br from-purple-600 to-pink-700 flex items-center justify-center shadow-lg shadow-purple-900/40 z-10">
                       <Icon name={s.icon} className="text-white" />
                     </div>
 
@@ -160,7 +160,7 @@ export default async function ProcessPage() {
                     key={s.title}
                     className="rounded-2xl border border-white/10 bg-white/3 p-6 hover:border-purple-500/40 transition-colors"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-600/40 to-pink-600/30 flex items-center justify-center mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-600/40 to-pink-700/30 flex items-center justify-center mb-4">
                       <Icon name={s.icon} className="text-purple-200 text-sm" />
                     </div>
                     <h3 className="text-white font-semibold">{s.title}</h3>
@@ -213,7 +213,7 @@ export default async function ProcessPage() {
               <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                 <Link
                   href="/project-terms"
-                  className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 transition hover:brightness-110"
+                  className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-700 px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 transition hover:brightness-110"
                 >
                   Read full terms, hosting &amp; renewal →
                 </Link>
@@ -236,7 +236,7 @@ export default async function ProcessPage() {
                 usually back with you within one working day.
               </p>
               <Link href="/contact">
-                <button className="mt-7 px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold hover:scale-105 transition-transform">
+                <button className="mt-7 px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-700 text-white text-sm font-semibold hover:scale-105 transition-transform">
                   Book a Discovery Call
                 </button>
               </Link>

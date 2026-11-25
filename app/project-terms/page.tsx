@@ -35,7 +35,7 @@ export default async function ProjectTermsPage() {
             </p>
             <Link
               href="/project-terms/pdf"
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-6 py-3 text-sm font-semibold text-white"
+              className="mt-7 inline-flex items-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-700 px-6 py-3 text-sm font-semibold text-white"
             >
               <FiDownload /> Download as PDF
             </Link>

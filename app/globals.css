@@ -1018,3 +1018,8 @@ html[data-uwl-dismiss] #uwl-boot-splash {
 .uwl-orb-purple { background: radial-gradient(closest-side, rgba(147, 51, 234, 0.16), transparent); }
 .uwl-orb-pink { background: radial-gradient(closest-side, rgba(219, 39, 119, 0.14), transparent); }
 .uwl-orb-hero { background: radial-gradient(closest-side, rgba(147, 51, 234, 0.28), transparent 70%); }
+
+
+/* Dark theme: muted text needs enough contrast on glass cards. */
+:root:not([data-theme="light"]) { --color-gray-500: #9ca3af; }
+:root[data-theme="dark"] { --color-gray-500: #9ca3af; }

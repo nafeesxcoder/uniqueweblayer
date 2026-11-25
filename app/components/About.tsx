@@ -185,7 +185,7 @@ export default function About() {
               <div className="relative rounded-3xl border border-purple-500/25 bg-linear-to-br from-white/7 to-white/2 backdrop-blur-xl p-6 shadow-2xl shadow-purple-900/30">
                 {/* Header row */}
                 <div className="flex items-center gap-3 pb-5 border-b border-white/10">
-                  <div className="w-12 h-12 rounded-2xl bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-2xl bg-linear-to-br from-purple-600 to-pink-700 flex items-center justify-center">
                     <FiUsers className="text-white text-xl" />
                   </div>
                   <div>
@@ -247,7 +247,7 @@ export default function About() {
               <motion.div
                 animate={{ y: [0, -10, 0], rotate: [0, 8, 0] }}
                 transition={{ duration: 4, repeat: Infinity }}
-                className="absolute -top-6 -right-4 bg-linear-to-br from-purple-600 to-pink-600 p-3 rounded-2xl shadow-xl z-20"
+                className="absolute -top-6 -right-4 bg-linear-to-br from-purple-600 to-pink-700 p-3 rounded-2xl shadow-xl z-20"
               >
                 <FaReact className="text-white text-2xl" />
               </motion.div>
@@ -414,7 +414,7 @@ export default function About() {
                 <motion.span
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group relative inline-flex items-center justify-center px-8 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white font-semibold transition-all duration-300 shadow-lg shadow-purple-500/25 overflow-hidden w-full sm:w-auto"
+                  className="group relative inline-flex items-center justify-center px-8 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-700 text-white font-semibold transition-all duration-300 shadow-lg shadow-purple-500/25 overflow-hidden w-full sm:w-auto"
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     More About Us

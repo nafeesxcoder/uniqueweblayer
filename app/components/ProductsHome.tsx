@@ -65,16 +65,16 @@ export default function ProductsHome() {
                       href={p.websiteUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-5 py-2.5 text-sm font-semibold text-white"
+                      className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-700 px-5 py-2.5 text-sm font-semibold text-white"
                     >
-                      Visit website <FiExternalLink />
+                      Visit website<span className="sr-only"> for {p.name}</span> <FiExternalLink />
                     </a>
                   )}
                   <Link
                     href={`/collaborations/${p.slug}`}
                     className="inline-flex items-center gap-2 text-sm font-semibold text-purple-400"
                   >
-                    See details <FiArrowRight />
+                    See details<span className="sr-only"> about {p.name}</span> <FiArrowRight />
                   </Link>
                 </div>
               </div>

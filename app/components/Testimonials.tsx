@@ -141,7 +141,7 @@ export default function Testimonials() {
                   className="mt-2 flex items-center justify-center gap-1.5 text-xs text-purple-300 transition hover:text-purple-200"
                 >
                   <FiExternalLink className="h-3.5 w-3.5" />
-                  Visit website
+                  Visit website<span className="sr-only"> for {business}</span>
                 </a>
               )}
             </figcaption>
@@ -163,7 +163,7 @@ export default function Testimonials() {
             <button
               onClick={() => go(1)}
               aria-label="Next testimonial"
-              className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white transition hover:brightness-110"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-r from-purple-600 to-pink-700 text-white transition hover:brightness-110"
             >
               <FiChevronRight className="h-4 w-4" />
             </button>

@@ -325,7 +325,7 @@ export default async function ProjectPage({
               </p>
               <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
                 <Link href="/contact">
-                  <button className="w-full rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-7 py-3 text-sm font-semibold text-white transition-transform hover:scale-105 sm:w-auto">
+                  <button className="w-full rounded-full bg-linear-to-r from-purple-600 to-pink-700 px-7 py-3 text-sm font-semibold text-white transition-transform hover:scale-105 sm:w-auto">
                     Start a Project
                   </button>
                 </Link>

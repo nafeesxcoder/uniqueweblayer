@@ -49,7 +49,7 @@ export default async function SaaSservicePage() {
       category="Premium Level (High Price) 💎"
       icon="fa-cloud"
       color="#a855f7"
-      gradient="from-purple-500 to-pink-600"
+      gradient="from-purple-500 to-pink-700"
       targetAudience={[
         "Startups & Entrepreneurs",
         "Tech Companies",

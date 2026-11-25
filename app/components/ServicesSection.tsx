@@ -412,7 +412,7 @@ export default function ServicesSection() {
       category: "Premium Level (High Price) 💎",
       icon: FaCloud,
       color: "#a855f7",
-      gradient: "from-purple-500 to-pink-600",
+      gradient: "from-purple-500 to-pink-700",
       targetAudience: "Startups, Entrepreneurs",
       features: [
         "Login/Signup",
@@ -608,7 +608,7 @@ export default function ServicesSection() {
                   <span className="rounded-full border border-white/15 bg-black/50 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
                     {currentService.category}
                   </span>
-                  <span className="text-xs tabular-nums text-white/50">
+                  <span className="text-xs tabular-nums text-white/70">
                     {String(currentSlide + 1).padStart(2, "0")} /{" "}
                     {String(services.length).padStart(2, "0")}
                   </span>
@@ -709,11 +709,16 @@ export default function ServicesSection() {
                 type="button"
                 aria-label={`Show ${s.title}`}
                 onClick={() => setCurrentSlide(idx)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  currentSlide === idx ? "w-8" : "w-2 bg-white/30 hover:bg-white/50"
-                }`}
-                style={currentSlide === idx ? { background: s.color } : undefined}
-              />
+                className="flex h-6 min-w-6 items-center justify-center px-1"
+              >
+                <span
+                  aria-hidden="true"
+                  className={`block h-2 rounded-full transition-all duration-300 ${
+                    currentSlide === idx ? "w-8" : "w-2 bg-white/30 hover:bg-white/50"
+                  }`}
+                  style={currentSlide === idx ? { background: s.color } : undefined}
+                />
+              </button>
             ))}
           </div>
           <button

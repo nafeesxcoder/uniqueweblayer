@@ -499,7 +499,7 @@ export default function AddProjectModal({
             <button
               type="submit"
               disabled={busy}
-              className="flex-1 rounded-xl bg-linear-to-r from-purple-600 to-pink-600 px-5 py-3 text-sm font-semibold text-white transition hover:brightness-110 disabled:opacity-60"
+              className="flex-1 rounded-xl bg-linear-to-r from-purple-600 to-pink-700 px-5 py-3 text-sm font-semibold text-white transition hover:brightness-110 disabled:opacity-60"
             >
               {busy ? "Saving…" : isEdit ? "Save changes" : "Add project"}
             </button>

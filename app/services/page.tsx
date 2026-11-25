@@ -201,7 +201,7 @@ export default async function ServicesListPage() {
                           </div>
 
                           <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-purple-400 group-hover:gap-3 transition-all">
-                            View details
+                            View details<span className="sr-only"> for {s.name}</span>
                             <Icon name="fa-arrow-right" className="text-xs" />
                           </span>
                         </article>
@@ -230,7 +230,7 @@ export default async function ServicesListPage() {
                     key={m.title}
                     className="rounded-2xl border border-white/10 bg-white/3 p-6 hover:border-purple-500/40 transition-colors"
                   >
-                    <div className="w-11 h-11 rounded-xl bg-linear-to-br from-purple-600/40 to-pink-600/30 flex items-center justify-center mb-4">
+                    <div className="w-11 h-11 rounded-xl bg-linear-to-br from-purple-600/40 to-pink-700/30 flex items-center justify-center mb-4">
                       <Icon name={m.icon} className="text-purple-200" />
                     </div>
                     <h3 className="text-white font-bold text-lg">{m.title}</h3>
@@ -264,7 +264,7 @@ export default async function ServicesListPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center mt-7">
                 <Link href="/contact">
-                  <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
+                  <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-700 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
                     Get a Free Quote
                   </button>
                 </Link>

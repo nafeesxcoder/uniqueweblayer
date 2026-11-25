@@ -210,7 +210,7 @@ export default async function CountryPage({
 
               <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
                 <Link href="/contact">
-                  <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
+                  <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-700 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
                     Get a Quote in {c.currency.split(" ")[0]}
                   </button>
                 </Link>
@@ -341,7 +341,7 @@ export default async function CountryPage({
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center mt-7">
                 <Link href="/contact">
-                  <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
+                  <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-700 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
                     Get a Free Quote
                   </button>
                 </Link>

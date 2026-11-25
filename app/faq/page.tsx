@@ -101,7 +101,7 @@ export default function FaqPage() {
                 any time zone.
               </p>
               <Link href="/contact">
-                <button className="mt-7 px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold hover:scale-105 transition-transform">
+                <button className="mt-7 px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-700 text-white text-sm font-semibold hover:scale-105 transition-transform">
                   Contact Us
                 </button>
               </Link>

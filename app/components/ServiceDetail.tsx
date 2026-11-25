@@ -281,7 +281,7 @@ export default function ServiceDetail({
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-7">
             <Link href="/contact">
-              <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
+              <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-700 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
                 Get a Free Quote
               </button>
             </Link>

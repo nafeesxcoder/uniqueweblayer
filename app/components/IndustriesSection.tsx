@@ -30,7 +30,7 @@ export default function IndustriesSection() {
               href="/industries"
               className="group rounded-2xl border border-white/10 bg-white/3 p-5 hover:border-purple-500/50 hover:-translate-y-1 transition-all duration-300"
             >
-              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-600/40 to-pink-600/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+              <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-600/40 to-pink-700/30 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
                 <Icon name={ind.icon} className="text-purple-200 text-sm" />
               </div>
               <h3 className="text-white font-semibold text-sm group-hover:text-purple-300 transition-colors">

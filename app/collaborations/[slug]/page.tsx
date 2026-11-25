@@ -100,7 +100,7 @@ function Actions({ product }: { product: Product }) {
           rel="noopener noreferrer"
           className={
             i === 0
-              ? "inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-7 py-3 text-sm font-semibold text-white"
+              ? "inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-700 px-7 py-3 text-sm font-semibold text-white"
               : "inline-flex items-center justify-center gap-2 rounded-full border border-purple-500/50 px-7 py-3 text-sm font-semibold text-white transition hover:bg-purple-600/10"
           }
         >
@@ -311,7 +311,7 @@ export default async function ProductPage({ params }: Props) {
                 className="mt-6 inline-flex items-center gap-2 rounded-full px-7 py-3 text-sm font-bold"
                 style={{ background: "#ffffff", color: product.brandColor }}
               >
-                Visit website <FiArrowRight />
+                Visit website<span className="sr-only"> for {product.name}</span> <FiArrowRight />
               </a>
             )}
           </div>

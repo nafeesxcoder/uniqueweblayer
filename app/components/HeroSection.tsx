@@ -130,7 +130,7 @@ export default function HeroSection() {
                     <Icon name="fa-paper-plane" className="text-xs" />
                     Get a Free Quote
                   </span>
-                  <span className="absolute inset-0 bg-linear-to-r from-purple-500 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                  <span className="absolute inset-0 bg-linear-to-r from-purple-500 to-pink-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
                 </button>
               </Link>
 

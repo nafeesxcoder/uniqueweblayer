@@ -87,7 +87,7 @@ export default function TechnologiesPage() {
                   className="rounded-2xl border border-purple-500/20 bg-linear-to-br from-purple-900/20 to-black/40 backdrop-blur-sm p-6 hover:border-purple-500/50 transition-colors"
                 >
                   <div className="flex items-center gap-3 mb-5">
-                    <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-600 to-pink-700 flex items-center justify-center">
                       <Icon name={group.icon} className="text-white text-sm" />
                     </div>
                     <h2 className="text-lg font-bold text-white">
@@ -121,7 +121,7 @@ export default function TechnologiesPage() {
                     key={w.title}
                     className="rounded-2xl border border-white/10 bg-white/3 p-6"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-600/40 to-pink-600/30 flex items-center justify-center mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-600/40 to-pink-700/30 flex items-center justify-center mb-4">
                       <Icon name={w.icon} className="text-purple-200 text-sm" />
                     </div>
                     <h3 className="text-white font-semibold">{w.title}</h3>
@@ -142,7 +142,7 @@ export default function TechnologiesPage() {
                 codebases as often as we start new ones.
               </p>
               <Link href="/contact">
-                <button className="mt-7 px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold hover:scale-105 transition-transform">
+                <button className="mt-7 px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-700 text-white text-sm font-semibold hover:scale-105 transition-transform">
                   Talk to a Developer
                 </button>
               </Link>

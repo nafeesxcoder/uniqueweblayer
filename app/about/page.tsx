@@ -208,7 +208,7 @@ export default function AboutPage() {
                       key={item.t}
                       className="flex gap-3 p-3 rounded-xl bg-white/3 border border-white/10"
                     >
-                      <div className="w-9 h-9 rounded-lg bg-linear-to-br from-purple-600/40 to-pink-600/30 flex items-center justify-center shrink-0">
+                      <div className="w-9 h-9 rounded-lg bg-linear-to-br from-purple-600/40 to-pink-700/30 flex items-center justify-center shrink-0">
                         <Icon name={item.icon} className="text-purple-200 text-xs" />
                       </div>
                       <div>
@@ -326,7 +326,7 @@ export default function AboutPage() {
                     key={t.role}
                     className="rounded-2xl border border-white/10 bg-white/3 p-6 hover:border-purple-500/40 transition-colors"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-linear-to-br from-purple-600 to-pink-700 flex items-center justify-center mb-4">
                       <Icon name={t.icon} className="text-white text-sm" />
                     </div>
                     <h3 className="text-white font-semibold">{t.role}</h3>
@@ -455,7 +455,7 @@ export default function AboutPage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center mt-7">
                 <Link href="/contact">
-                  <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
+                  <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-700 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
                     Contact Us
                   </button>
                 </Link>

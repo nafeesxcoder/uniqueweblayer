@@ -83,9 +83,9 @@ function Showcase({ product, flip }: { product: Product; flip: boolean }) {
               href={product.websiteUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-6 py-3 text-sm font-semibold text-white"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-700 px-6 py-3 text-sm font-semibold text-white"
             >
-              Visit website <FiExternalLink />
+              Visit website<span className="sr-only"> for {product.name}</span> <FiExternalLink />
             </a>
           )}
           <Link
@@ -159,7 +159,7 @@ export default async function ProductsPage() {
                   key={w.title}
                   className="rounded-2xl border border-purple-500/20 bg-linear-to-br from-purple-900/20 to-black/40 p-6"
                 >
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br from-purple-600 to-pink-600 text-white">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-linear-to-br from-purple-600 to-pink-700 text-white">
                     <w.icon />
                   </span>
                   <h3 className="mt-4 font-bold text-white">{w.title}</h3>
@@ -169,7 +169,7 @@ export default async function ProductsPage() {
             </div>
           </div>
 
-          <div className="uwl-onbrand mt-20 rounded-3xl bg-linear-to-r from-purple-600 to-pink-600 p-8 text-center md:p-12">
+          <div className="uwl-onbrand mt-20 rounded-3xl bg-linear-to-r from-purple-600 to-pink-700 p-8 text-center md:p-12">
             <h2 className="text-2xl font-bold text-white md:text-3xl">
               Want to build something together?
             </h2>

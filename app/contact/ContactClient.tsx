@@ -584,7 +584,7 @@ export default function ContactClient({
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className={`group flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-purple-600 to-pink-600 py-3.5 font-semibold text-white transition-all duration-300 ${
+                      className={`group flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-purple-600 to-pink-700 py-3.5 font-semibold text-white transition-all duration-300 ${
                         isSubmitting
                           ? "cursor-not-allowed opacity-70"
                           : "hover:shadow-lg hover:shadow-purple-500/25 hover:brightness-110"

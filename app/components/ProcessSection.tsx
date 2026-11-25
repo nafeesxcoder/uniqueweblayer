@@ -32,7 +32,7 @@ export default function ProcessSection() {
               className="group relative rounded-2xl border border-purple-500/20 bg-linear-to-br from-purple-900/20 to-black/40 p-6 hover:border-purple-500/60 hover:-translate-y-1 transition-all duration-300"
             >
               <div className="flex items-start justify-between mb-4">
-                <div className="w-11 h-11 rounded-xl bg-linear-to-br from-purple-600 to-pink-600 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-11 h-11 rounded-xl bg-linear-to-br from-purple-600 to-pink-700 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Icon name={s.icon} className="text-white text-sm" />
                 </div>
                 <span className="text-3xl font-bold text-white/5 group-hover:text-purple-500/20 transition-colors">

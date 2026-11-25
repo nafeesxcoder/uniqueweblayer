@@ -137,7 +137,7 @@ export default function ProjectsSection() {
                     className="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:brightness-125"
                     style={{ color: project.color }}
                   >
-                    View live project
+                    View live project<span className="sr-only"> for {project.title}</span>
                     <Icon name="fa-arrow-right" className="text-xs group-hover:translate-x-1 transition-transform" />
                   </a>
                 </div>

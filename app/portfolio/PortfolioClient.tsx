@@ -150,7 +150,7 @@ export default function PortfolioClient({
             <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
               <Link
                 href="/admin/projects"
-                className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 transition hover:scale-105"
+                className="inline-flex items-center gap-2 rounded-full bg-linear-to-r from-purple-600 to-pink-700 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-purple-500/25 transition hover:scale-105"
               >
                 <Icon name="fa-sliders" className="text-xs" />
                 Manage projects
@@ -187,7 +187,7 @@ export default function PortfolioClient({
                   onClick={() => setFilter(f.value)}
                   className={`shrink-0 px-4 sm:px-5 py-2 rounded-full text-sm font-medium border transition-all duration-300 ${
                     active
-                      ? "bg-linear-to-r from-purple-600 to-pink-600 text-white border-transparent shadow-lg shadow-purple-500/25"
+                      ? "bg-linear-to-r from-purple-600 to-pink-700 text-white border-transparent shadow-lg shadow-purple-500/25"
                       : "bg-white/3 text-gray-300 border-white/10 hover:border-purple-500/50 hover:text-white"
                   }`}
                 >
@@ -410,7 +410,7 @@ export default function PortfolioClient({
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center mt-7">
               <Link href="/contact">
-                <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
+                <button className="px-7 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-700 text-white text-sm font-semibold hover:scale-105 transition-transform w-full sm:w-auto">
                   Start a Project
                 </button>
               </Link>
