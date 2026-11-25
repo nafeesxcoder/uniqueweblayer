@@ -491,8 +491,8 @@ export default function ServicesSection() {
       <Stars />
 
       <div
-        className="absolute -top-24 left-1/4 w-[520px] h-[520px] rounded-full blur-3xl opacity-25 transition-colors duration-700"
-        style={{ background: accent }}
+        className="absolute -top-24 left-1/4 w-[520px] h-[520px] rounded-full opacity-40 transition-colors duration-700"
+        style={{ background: `radial-gradient(closest-side, ${accent}, transparent)` }}
       />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

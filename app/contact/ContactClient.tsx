@@ -179,8 +179,8 @@ export default function ContactClient({
     <section className="relative overflow-hidden py-12 sm:py-16 md:py-20">
       <div className="absolute inset-0 bg-linear-to-b from-black via-purple-950/10 to-black" />
       <Stars />
-      <div className="absolute top-24 left-8 h-72 w-72 rounded-full bg-purple-600/10 blur-3xl" />
-      <div className="absolute bottom-24 right-8 h-96 w-96 rounded-full bg-pink-600/10 blur-3xl" />
+      <div className="uwl-orb-purple absolute top-24 left-8 h-72 w-72 rounded-full" />
+      <div className="uwl-orb-pink absolute bottom-24 right-8 h-96 w-96 rounded-full" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-10 max-w-2xl md:mb-14">

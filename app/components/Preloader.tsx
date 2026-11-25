@@ -121,7 +121,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
       setTimeout(() => {
         if (onComplete) onComplete();
       }, 500);
-    }, 2600);
+    }, 2200);
     return () => clearTimeout(timer);
   }, [onComplete]);
 

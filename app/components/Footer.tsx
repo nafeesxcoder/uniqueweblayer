@@ -34,6 +34,7 @@ const footerLinks = {
     { name: "Technologies", href: "/technologies" },
     { name: "Countries We Serve", href: "/web-development-company" },
     { name: "FAQ", href: "/faq" },
+    { name: "Privacy Policy", href: "/privacy" },
     { name: "Project Terms", href: "/project-terms" },
     { name: "Contact", href: "/contact" },
   ],
@@ -96,6 +97,8 @@ const Modal = ({
             {title}
           </h2>
           <button
+            type="button"
+            aria-label="Close"
             onClick={onClose}
             className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors"
           >

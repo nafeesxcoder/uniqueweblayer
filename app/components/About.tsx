@@ -133,8 +133,8 @@ export default function About() {
 
       <Stars />
 
-      <div className="absolute top-20 left-10 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
+      <div className="uwl-orb-purple absolute top-20 left-10 w-80 h-80 rounded-full" />
+      <div className="uwl-orb-pink absolute bottom-20 right-10 w-96 h-96 rounded-full" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -411,27 +411,27 @@ export default function About() {
               className="flex flex-col sm:flex-row gap-4 pt-4"
             >
               <Link href="/about">
-                <motion.button
+                <motion.span
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group relative px-8 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white font-semibold transition-all duration-300 shadow-lg shadow-purple-500/25 overflow-hidden w-full sm:w-auto"
+                  className="group relative inline-flex items-center justify-center px-8 py-3 rounded-full bg-linear-to-r from-purple-600 to-pink-600 text-white font-semibold transition-all duration-300 shadow-lg shadow-purple-500/25 overflow-hidden w-full sm:w-auto"
                 >
                   <span className="relative z-10 flex items-center justify-center gap-2">
                     More About Us
                     <FiArrowRight className="text-sm group-hover:translate-x-1 transition-transform" />
                   </span>
-                </motion.button>
+                </motion.span>
               </Link>
 
               <Link href="/process">
-                <motion.button
+                <motion.span
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-3 rounded-full border-2 border-purple-400/50 text-white font-semibold hover:border-purple-400 hover:bg-purple-600/10 transition-all duration-300 flex items-center justify-center gap-2 w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-full border-2 border-purple-400/50 text-white font-semibold hover:border-purple-400 hover:bg-purple-600/10 transition-all duration-300 flex items-center justify-center gap-2 w-full sm:w-auto"
                 >
                   <Icon name="fa-diagram-project" className="text-sm" />
                   How We Work
-                </motion.button>
+                </motion.span>
               </Link>
             </motion.div>
           </div>

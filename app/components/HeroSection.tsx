@@ -159,7 +159,7 @@ export default function HeroSection() {
           {/* RIGHT - Hero illustration */}
           <div className="relative">
             {/* Glow behind the artwork */}
-            <div className="absolute -inset-6 bg-linear-to-tr from-purple-600/25 via-transparent to-pink-600/20 blur-3xl rounded-full" />
+            <div className="uwl-orb-hero absolute -inset-6 rounded-full" />
 
             <div className="relative animate-float-slow">
               {/* eslint-disable-next-line @next/next/no-img-element */}

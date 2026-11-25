@@ -1011,3 +1011,10 @@ html[data-uwl-dismiss] #uwl-boot-splash {
   .uwl-reveal { opacity: 1; transform: none; transition: none; }
   .uwl-float, .uwl-float-slow, .uwl-panel-motion::after { animation: none; }
 }
+
+
+/* Soft colour glows. A radial gradient paints far cheaper than a blur filter
+   on a large element, and it looks the same on the page. */
+.uwl-orb-purple { background: radial-gradient(closest-side, rgba(147, 51, 234, 0.16), transparent); }
+.uwl-orb-pink { background: radial-gradient(closest-side, rgba(219, 39, 119, 0.14), transparent); }
+.uwl-orb-hero { background: radial-gradient(closest-side, rgba(147, 51, 234, 0.28), transparent 70%); }

@@ -148,8 +148,8 @@ export default function WhyChooseUs() {
       <Stars />
 
       {/* Animated Orbs */}
-      <div className="absolute top-20 left-10 w-72 h-72 bg-purple-600/10 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 bg-pink-600/10 rounded-full blur-3xl animate-pulse delay-1000" />
+      <div className="uwl-orb-purple absolute top-20 left-10 w-72 h-72 rounded-full" />
+      <div className="uwl-orb-pink absolute bottom-20 right-10 w-80 h-80 rounded-full" />
 
       {/* Moving Gradient Lines */}
       <div className="absolute top-0 left-0 w-full h-px bg-linear-to-r from-transparent via-purple-500/20 to-transparent" />

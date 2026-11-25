@@ -91,6 +91,8 @@ export default function ProjectsSection() {
                   {project.image ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
+                      width={800}
+                      height={600}
                       src={project.image}
                       alt={`${project.title} — built by Unique Web Layer`}
                       loading="lazy"
