@@ -73,9 +73,9 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
           i++;
         } else {
           clearInterval(timer);
-          setTimeout(() => setStep(2), 400);
+          setTimeout(() => setStep(2), 200);
         }
-      }, 70);
+      }, 40);
       return () => clearInterval(timer);
     }
   }, [step]);
@@ -91,7 +91,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
         } else {
           clearInterval(timer);
         }
-      }, 60);
+      }, 35);
       return () => clearInterval(timer);
     }
   }, [step]);
@@ -121,7 +121,7 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
       setTimeout(() => {
         if (onComplete) onComplete();
       }, 500);
-    }, 2200);
+    }, 1500);
     return () => clearTimeout(timer);
   }, [onComplete]);
 
@@ -257,10 +257,10 @@ export default function Preloader({ onComplete }: { onComplete?: () => void }) {
 
           {/* White Progress Bar */}
           <motion.div
-            className="absolute bottom-0 left-0 h-1 bg-linear-to-r from-white/50 via-white to-white/50"
-            initial={{ width: 0 }}
-            animate={{ width: "100%" }}
-            transition={{ duration: 2.6, ease: "linear" }}
+            className="absolute bottom-0 left-0 h-1 w-full origin-left bg-linear-to-r from-white/50 via-white to-white/50"
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1.5, ease: "linear" }}
           />
         </motion.div>
       )}

@@ -1023,3 +1023,20 @@ html[data-uwl-dismiss] #uwl-boot-splash {
 /* Dark theme: muted text needs enough contrast on glass cards. */
 :root:not([data-theme="light"]) { --color-gray-500: #9ca3af; }
 :root[data-theme="dark"] { --color-gray-500: #9ca3af; }
+
+
+/* Progress bars: animate transform (composited) instead of width. */
+.uwl-progress { transform-origin: left center; animation: uwlProgress 8s linear forwards; }
+@keyframes uwlProgress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Mobile: backdrop blur is expensive on phone GPUs and the glass panels read
+   just as well on their dark tint, so it is skipped below 768px. Fewer
+   background stars on small screens for the same reason. */
+@media (max-width: 767px) {
+  [class*="backdrop-blur"] { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+  .uwl-star:nth-child(n + 16) { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .uwl-progress { animation: none; transform: scaleX(1); }
+}

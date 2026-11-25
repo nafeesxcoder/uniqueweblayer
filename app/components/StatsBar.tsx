@@ -163,8 +163,8 @@ export default function StatsBar() {
                 {/* Progress Bar */}
                 <div className="w-full h-0.5 bg-white/10 rounded-full mt-4 overflow-hidden">
                   <div
-                    className={`h-full bg-linear-to-r ${item.gradient} rounded-full transition-all duration-1000`}
-                    style={{ width: hasStarted ? "100%" : "0%" }}
+                    className={`h-full w-full origin-left bg-linear-to-r ${item.gradient} rounded-full transition-transform duration-1000`}
+                    style={{ transform: hasStarted ? "scaleX(1)" : "scaleX(0)" }}
                   />
                 </div>
               </div>

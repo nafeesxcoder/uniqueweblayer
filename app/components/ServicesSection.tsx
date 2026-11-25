@@ -680,13 +680,10 @@ export default function ServicesSection() {
             </AnimatePresence>
 
             <div className="absolute bottom-0 left-0 h-1 w-full bg-white/5">
-              <motion.div
-                key={`${currentSlide}-${paused}`}
-                className="h-full"
-                style={{ background: accent }}
-                initial={{ width: "0%" }}
-                animate={{ width: paused ? undefined : "100%" }}
-                transition={{ duration: 8, ease: "linear" }}
+              <div
+                key={currentSlide}
+                className="uwl-progress h-full w-full"
+                style={{ background: accent, animationPlayState: paused ? "paused" : "running" }}
               />
             </div>
           </div>

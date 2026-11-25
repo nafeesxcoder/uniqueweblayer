@@ -478,9 +478,9 @@ export default function About() {
 
                     <div className="w-full h-0.5 bg-white/10 rounded-full mt-3 overflow-hidden">
                       <motion.div
-                        className={`h-full bg-linear-to-r ${item.gradient} rounded-full`}
-                        initial={{ width: "0%" }}
-                        animate={{ width: isInView ? "100%" : "0%" }}
+                        className={`h-full w-full origin-left bg-linear-to-r ${item.gradient} rounded-full`}
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: isInView ? 1 : 0 }}
                         transition={{ duration: 1, delay: 0.5 + idx * 0.1 }}
                       />
                     </div>
